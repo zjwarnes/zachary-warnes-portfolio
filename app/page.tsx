@@ -7,11 +7,13 @@ export default function Page() {
         My Portfolio
       </h1>
       <p className="mb-4">
-        {`I'm a Vim enthusiast and tab advocate, finding unmatched efficiency in
-        Vim's keystroke commands and tabs' flexibility for personal viewing
-        preferences. This extends to my support for static typing, where its
-        early error detection ensures cleaner code, and my preference for dark
-        mode, which eases long coding sessions by reducing eye strain.`}
+        {`I am a data professional with six years of experience architecting and deploying AI models
+         for innovative companies using novel technologies. Currently, I work as a Data Engineer, 
+         where I develop advanced AI models and scalable data pipelines. 
+         My expertise includes building RAG GPT-based LLM models, implementing MLOps pipelines, 
+         and developing event-driven data pipelines and monitoring dashboards. 
+         I hold an MSc in Data Science from Maastricht University and a 
+         BSc in Computer Science and Mathematics from McGill University.`}
       </p>
       <div className="my-8">
         <BlogPosts />
