@@ -1,0 +1,6 @@
+:root {
+  --color-text-primary: rgb(229, 231, 235); /* Light gray for dark mode */
+  --color-text-secondary: rgb(156, 163, 175); /* Lighter gray for secondary text */
+  --color-background-card: rgba(17, 17, 17, 0.85); /* Updated from 0.8 to 0.85 for better contrast */
+  /* ... other variables ... */
+} 

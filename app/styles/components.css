@@ -1,0 +1,32 @@
+/* Card and Container Styles */
+.card {
+  @apply bg-[var(--color-background-card)] p-6 rounded-lg;
+}
+
+/* Typography */
+.text-primary {
+  @apply text-[var(--color-text-primary)];
+}
+
+.text-secondary {
+  @apply text-[var(--color-text-secondary)];
+}
+
+.heading-lg {
+  @apply font-semibold text-2xl md:text-3xl mb-4 tracking-tighter text-primary;
+}
+
+.heading-md {
+  @apply font-semibold text-xl mb-4 text-primary;
+}
+
+/* Layout */
+.container {
+  @apply w-full mx-auto px-4
+    sm:max-w-screen-sm 
+    md:max-w-screen-md md:px-6
+    lg:max-w-screen-lg lg:px-8
+    xl:max-w-screen-xl;
+}
+
+/* Button styles can also be moved here if needed */ 
