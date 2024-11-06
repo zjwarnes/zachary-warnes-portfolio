@@ -112,46 +112,42 @@ export default function Page() {
       {/* Skills Section */}
       <div className="my-8">
         <h2 className="text-xl md:text-2xl font-medium mb-4">Core Skills</h2>
-        <div className="mx-auto w-[60%]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {skills.map((skill, index) => (
-              <SkillCard
-                key={index}
-                title={skill.title}
-                description={skill.description}
-                details={skill.details}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {skills.map((skill, index) => (
+            <SkillCard
+              key={index}
+              title={skill.title}
+              description={skill.description}
+              details={skill.details}
+            />
+          ))}
         </div>
       </div>
 
       {/* Projects Section */}
       <div className="my-8">
         <h2 className="text-xl md:text-2xl font-medium mb-4">Featured Projects</h2>
-        <div className="mx-auto w-[60%]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ProjectLink 
-              href="/projects/llm"
-              title="LLM & RAG Systems"
-              description="Enterprise-scale LLM and RAG implementations for scientific document retrieval"
-            />
-            <ProjectLink 
-              href="/projects/vision"
-              title="Computer Vision Projects"
-              description="Advanced computer vision and object detection systems"
-            />
-            <ProjectLink 
-              href="/projects/prediction"
-              title="Predictive Models"
-              description="Machine learning models for predictive analytics and monitoring"
-            />
-            <ProjectLink 
-              href="/projects/other"
-              title="Other Projects"
-              description="Additional machine learning and data science projects"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <ProjectLink 
+            href="/projects/llm"
+            title="LLM & RAG Systems"
+            description="Enterprise-scale LLM and RAG implementations for scientific document retrieval"
+          />
+          <ProjectLink 
+            href="/projects/vision"
+            title="Computer Vision Projects"
+            description="Advanced computer vision and object detection systems"
+          />
+          <ProjectLink 
+            href="/projects/prediction"
+            title="Predictive Models"
+            description="Machine learning models for predictive analytics and monitoring"
+          />
+          <ProjectLink 
+            href="/projects/other"
+            title="Other Projects"
+            description="Additional machine learning and data science projects"
+          />
         </div>
       </div>
     </Container>

@@ -1,12 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-    };
-    return config;
-  }
-};
+  // Add transpilePackages for @mediapipe
+  transpilePackages: ['@mediapipe/tasks-vision']
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

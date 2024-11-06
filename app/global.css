@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Add this keyframe animation at the top of the file */
 @keyframes slowFloat {

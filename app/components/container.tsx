@@ -12,11 +12,8 @@ export function Container({
   return (
     <Component 
       className={`
-        w-full mx-auto px-4
-        sm:max-w-screen-sm 
-        md:max-w-screen-md md:px-6
-        lg:max-w-screen-lg lg:px-8
-        xl:max-w-screen-xl
+        w-full mx-auto px-6
+        max-w-[95%]
         ${className}
       `}
     >
