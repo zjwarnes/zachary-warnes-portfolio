@@ -129,9 +129,9 @@ export function FallingImages({
       return {
         id: i,
         x: Math.random() * (window.innerWidth - IMAGE_SIZE),
-        y: Math.random() * (window.innerHeight - IMAGE_SIZE),
+        y: -IMAGE_SIZE + (Math.random() * -window.innerHeight),
         speed: BASE_SPEED + Math.random() * MAX_SPEED,
-        rotation: (Math.random() * 180) - 90, // Random rotation between -90 and 90
+        rotation: (Math.random() * 180) - 90,
         type,
         faceIndex: type === 'face' ? Math.floor(Math.random() * faceImageRefs.current.length) : undefined
       };
@@ -196,11 +196,11 @@ export function FallingImages({
 
         // Update detections, keeping only recent ones
         const updatedDetections = detectionsRef.current
-          .map(detection => ({
+          .map((detection: TimestampedDetection) => ({
             ...detection,
             frameCount: detection.frameCount + 1
           }))
-          .filter(detection => detection.frameCount < MAX_CACHED_DETECTIONS);
+          .filter((detection: TimestampedDetection) => detection.frameCount < MAX_CACHED_DETECTIONS);
 
         const combinedDetections = [...scaledDetections, ...updatedDetections]
           .slice(0, MAX_CACHED_DETECTIONS); // Limit total number of cached detections
@@ -265,7 +265,7 @@ export function FallingImages({
       // Update positions less frequently
       frameCount = (frameCount + 1) % FRAME_RATE;
       if (frameCount === 0) {
-        const updatedImages = imagesRef.current.map(img => {
+        const updatedImages = imagesRef.current.map((img: FallingImage) => {
           const newY = (img.y + img.speed) % (window.innerHeight - IMAGE_SIZE);
           const needsNewFaceIndex = img.y + img.speed >= window.innerHeight - IMAGE_SIZE;
           
@@ -292,7 +292,7 @@ export function FallingImages({
       }
 
       // Draw the current images using getImageRefForType
-      imagesRef.current.forEach(img => {
+      imagesRef.current.forEach((img: FallingImage) => {
         const imageRef = getImageRefForType(img.type, img.faceIndex);
         if (!imageRef) return;
 
@@ -309,7 +309,7 @@ export function FallingImages({
         ctx.strokeStyle = '#00FF00';
         ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
         
-        detectionsRef.current.forEach(detection => {
+        detectionsRef.current.forEach((detection: TimestampedDetection) => {
           // Fade out the detection as it gets older
           const opacity = Math.max(0.2, 1 - (detection.frameCount / 3));
           ctx.strokeStyle = `rgba(0, 255, 0, ${opacity})`;

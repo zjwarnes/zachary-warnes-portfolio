@@ -1,86 +1,84 @@
-import ProjectLayout from 'app/components/project-layout';
-import { Container } from 'app/components/container';
-import { ProjectCard } from 'app/components/projects/project-card';
-import { FeatureList } from 'app/components/projects/feature-list';
-import { ProjectDemo } from 'app/components/projects/project-demo';
-import { ProjectDescription } from 'app/components/projects/project-description';
+import ProjectLayout from '@/app/components/project-layout';
+import { Container } from '@/app/components/container';
+import { ProjectDescription } from '@/app/components/projects/project-description';
+import { ApplicationCard } from '@/app/components/projects/llm/application-card';
+import dynamic from 'next/dynamic';
+
+// Dynamically import the LLM components with ssr disabled
+const LLMDemo = dynamic(
+  () => import('@/app/components/projects/llm/llm-demo').then(mod => mod.LLMDemo),
+  { ssr: false }
+);
+
+const LLMErrorBoundary = dynamic(
+  () => import('@/app/components/projects/llm/error-boundary').then(mod => mod.LLMErrorBoundary),
+  { ssr: false }
+);
+
+const applications = [
+  {
+    title: "Custom Knowledge Assistant",
+    description: "AI-powered chatbot that learns from your organization's documents and knowledge base to provide accurate, contextual responses to employee queries.",
+    skills: ["RAG", "Vector databases", "LLM fine-tuning", "Enterprise search"],
+    value: "Reduces time spent searching for information by 70% and ensures consistent knowledge sharing across teams."
+  },
+  {
+    title: "Automated Document Analysis",
+    description: "Intelligent system for processing and analyzing large volumes of documents, extracting key insights and generating summaries.",
+    skills: ["Document processing", "NLP", "Information extraction", "Text summarization"],
+    value: "Cuts document processing time by 80% while improving accuracy and consistency of information extraction."
+  },
+  {
+    title: "Conversational AI Platform",
+    description: "Enterprise-grade platform for building and deploying custom chatbots and virtual assistants tailored to specific business needs.",
+    skills: ["Dialogue management", "Intent recognition", "Multi-language support", "Integration APIs"],
+    value: "Enables 24/7 customer support while reducing support costs by 50% and improving response times."
+  },
+  {
+    title: "Content Generation System",
+    description: "AI-powered system for generating and optimizing various types of content, from technical documentation to marketing materials.",
+    skills: ["Content generation", "SEO optimization", "Multilingual support", "Template management"],
+    value: "Accelerates content creation by 5x while maintaining brand voice and quality standards."
+  }
+];
 
 export const metadata = {
-  title: 'LLM & RAG Projects',
-  description: 'Enterprise-scale LLM and RAG implementations for scientific document retrieval',
+  title: 'LLM Projects',
+  description: 'Interactive LLM demonstrations and applications',
 }
-
-const features = [
-  'Scalable indexing of scientific documents',
-  'Slack integration for seamless access',
-  'GPT-based contextual response generation',
-  'Enterprise-grade security and compliance',
-];
-
-const techStack = [
-  'Azure Web Apps for deployment',
-  'Pinecone vector stores for document indexing',
-  'Langchain for LLM integration',
-  'Slack API for user interaction',
-];
-
-const impact = [
-  'Serving 100+ scientific users across research teams',
-  'Processing tens of thousands of scientific documents',
-  'Significant reduction in information retrieval time',
-  'Enhanced decision-making through contextual insights',
-];
-
-const description = [
-  `This enterprise-level RAG system demonstrates the successful implementation 
-   of LLM technology in a production environment. By combining Azure's cloud 
-   infrastructure with advanced language models and vector search capabilities, 
-   the system provides researchers with instant access to relevant information 
-   from vast document repositories.`,
-  `The integration with Slack makes the system easily accessible within existing 
-   workflows, while the use of Pinecone vector stores ensures efficient and 
-   accurate document retrieval. The Langchain-powered GPT model generates 
-   contextually accurate responses, making complex scientific information more 
-   accessible and actionable.`,
-];
 
 export default function LLMPage() {
   return (
     <Container>
       <ProjectLayout
         demo={
-          <ProjectDemo
-            title="LLM-powered RAG System Demo"
-            description="Interactive demonstration of scientific document retrieval and response generation"
-          />
+          <LLMErrorBoundary>
+            <LLMDemo />
+          </LLMErrorBoundary>
         }
       >
         <div className="space-y-8">
           <div>
-            <h1 className="font-semibold text-2xl md:text-3xl mb-4 tracking-tighter">
-              LLM-powered Retrieval-Augmented Generation (RAG) System
+            <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+              Language Model Projects
             </h1>
-            <p className="text-white text-lg">
-              Enterprise-scale document retrieval and insight generation system deployed on Azure
-            </p>
+            <ProjectDescription
+              paragraphs={[
+                "Interactive demonstration of a browser-based language model. Chat with the AI to learn about my skills and experience in building LLM-powered applications.",
+                "This demo showcases my expertise in deploying efficient, production-ready language models, particularly for enterprise applications requiring real-time responses and seamless integration."
+              ]}
+            />
           </div>
 
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <ProjectCard title="Key Features">
-                <FeatureList items={features} />
-              </ProjectCard>
-
-              <ProjectCard title="Technical Stack">
-                <FeatureList items={techStack} />
-              </ProjectCard>
+          <div>
+            <h2 className="font-semibold text-xl mb-4 tracking-tighter">
+              What I Can Build For You
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2">
+              {applications.map((app, index) => (
+                <ApplicationCard key={index} {...app} />
+              ))}
             </div>
-
-            <ProjectCard title="Impact & Scale">
-              <FeatureList items={impact} />
-            </ProjectCard>
-
-            <ProjectDescription paragraphs={description} />
           </div>
         </div>
       </ProjectLayout>
