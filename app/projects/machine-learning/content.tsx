@@ -117,13 +117,13 @@ export function MachineLearningContent({ coreProjects, modelingTechniques }: Mac
                 <div className="space-y-3 text-sm text-white">
                     <div>
                         <p className="font-semibold text-[var(--color-primary)] mb-1">Expertise & Specialization</p>
-                        <p className="text-white">Specialized in advanced machine learning and deep learning systems with 6+ years of industry experience. Expert in building production-grade models that combine theoretical rigor with practical deployment, solving complex problems across diverse domains.</p>
+                        <p className="text-white">Specialized in building advanced machine learning systems across scientific and healthcare domains with 6+ years of industry experience. Expert in designing and deploying production-grade models that combine theoretical rigor with practical scalability, delivering measurable business impact through data-driven solutions.</p>
                     </div>
                     <div>
                         <p className="font-semibold text-[var(--color-primary)] mb-1">Key Achievements</p>
-                        <p className="text-white">• Built interpretable classification models with significant performance improvements through advanced feature engineering</p>
-                        <p className="text-white">• Designed and deployed custom 3D deep learning architectures for complex multi-dimensional geological modelling</p>
-                        <p className="text-white">• Created production-grade anomaly detection systems with real-time monitoring and automated alerting for mission-critical operations</p>
+                        <p className="text-white">• Achieved significant performance improvements through advanced feature engineering and fine-tuning techniques in predictive modeling</p>
+                        <p className="text-white">• Designed and deployed custom 3D CNN architectures for complex geological analysis and modeling at scale</p>
+                        <p className="text-white">• Built anomaly detection systems with real-time monitoring and automated alerting that ensure data quality and system reliability for mission-critical operations</p>
                     </div>
                 </div>
             </div>
