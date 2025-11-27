@@ -2,8 +2,7 @@ import { Container } from '@/app/components/container'
 import { ParticleBackground } from '@/app/components/particle-background'
 import { DemoReveal } from '@/app/components/projects/demo-reveal'
 import ProjectLayout from '@/app/components/project-layout'
-import { ProjectDescription } from '@/app/components/projects/project-description'
-import { ApplicationCard } from '@/app/components/projects/llm/application-card'
+import { MachineLearningContent } from './content'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
@@ -85,48 +84,7 @@ export default function MachineLearningPage() {
               </DemoReveal>
             }
           >
-            <div className="space-y-8">
-              <div>
-                <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-                  Machine Learning Expertise
-                </h1>
-                <ProjectDescription
-                  paragraphs={[
-                    "Specialized in building advanced machine learning and deep learning systems that solve complex problems. With expertise spanning from classical machine learning to cutting-edge deep learning architectures, I combine theoretical rigor with practical deployment expertise to create models that are accurate, interpretable, and production-ready.",
-                    "My focus is on understanding the business impact of each model, rigorous evaluation practices, and creating systems that can be maintained and improved over time."
-                  ]}
-                />
-              </div>
-
-              <div>
-                <h2 className="font-semibold text-xl mb-4 tracking-tighter">
-                  What I Offer
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2">
-                  {coreProjects.map((project, index) => (
-                    <ApplicationCard key={index} {...project} />
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h2 className="font-semibold text-xl mb-4 tracking-tighter">
-                  Technical Stack
-                </h2>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  {modelingTechniques.map((category, index) => (
-                    <div key={index}>
-                      <p className="font-semibold text-[var(--color-primary)] mb-2">{category.name}</p>
-                      <ul className="space-y-1 text-[var(--color-text-primary)] list-disc list-inside">
-                        {category.items.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <MachineLearningContent coreProjects={coreProjects} modelingTechniques={modelingTechniques} />
           </ProjectLayout>
         </Container>
       </div>

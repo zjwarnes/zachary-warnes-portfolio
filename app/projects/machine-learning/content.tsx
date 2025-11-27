@@ -86,25 +86,15 @@ export function MachineLearningContent({ coreProjects, modelingTechniques }: Mac
                 <h2 className="font-semibold text-xl mb-4 tracking-tighter">
                     Technical Stack
                 </h2>
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-2 gap-3 text-sm">
                     {modelingTechniques.map((category, index) => (
-                        <div
-                            key={index}
-                            className="p-4 bg-[var(--color-background-card)] border border-[var(--color-border-primary)] rounded-lg"
-                        >
-                            <h3 className="font-semibold text-[var(--color-primary)] mb-2 text-sm uppercase">
-                                {category.name}
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
+                        <div key={index}>
+                            <p className="font-semibold text-[var(--color-primary)] mb-2">{category.name}</p>
+                            <ul className="space-y-1 text-[var(--color-text-primary)] list-disc list-inside">
                                 {category.items.map((item, i) => (
-                                    <span
-                                        key={i}
-                                        className="px-3 py-1 bg-[var(--color-border-primary)] text-[var(--color-text-primary)] rounded text-xs"
-                                    >
-                                        {item}
-                                    </span>
+                                    <li key={i}>{item}</li>
                                 ))}
-                            </div>
+                            </ul>
                         </div>
                     ))}
                 </div>
