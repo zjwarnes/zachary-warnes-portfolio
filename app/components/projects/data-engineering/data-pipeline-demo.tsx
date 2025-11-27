@@ -42,6 +42,7 @@ export function DataPipelineDemo() {
     const [particles, setParticles] = useState<DataParticle[]>([])
     const timeRef = useRef(0)
     const lastProducerTimeRef = useRef<number[]>([])
+    const lastConsumerTimeRef = useRef<number[]>([])
 
     // Update producer/reader stats arrays when counts change
     useEffect(() => {
@@ -58,6 +59,10 @@ export function DataPipelineDemo() {
         })
         lastProducerTimeRef.current = Array(producerCount).fill(0)
     }, [producerCount])
+
+    useEffect(() => {
+        lastConsumerTimeRef.current = Array(Math.max(1, effectiveReaderCount)).fill(0)
+    }, [effectiveReaderCount])
 
     useEffect(() => {
         setReaderStats((prev) => {
@@ -103,23 +108,23 @@ export function DataPipelineDemo() {
         if (!isRunning) return
 
         const interval = setInterval(() => {
-            timeRef.current += 16 // ~60fps
+            timeRef.current += 1000 // 1 second per tick
 
             setParticles((prevParticles) => {
                 let updated = [...prevParticles]
 
-                // Generate particles from each producer (0, 1, or 2 items/sec = random)
+                // Generate particles from each producer (0, 1, or 2 items/sec)
                 for (let i = 0; i < producerCount; i++) {
                     // Random chance of producing 0, 1, or 2 items per second
                     const rand = Math.random()
                     let itemsToGenerate = 0
 
-                    if (rand < 0.008) {
-                        itemsToGenerate = 2 // ~2 per second
-                    } else if (rand < 0.024) {
-                        itemsToGenerate = 1 // ~1 per second
+                    if (rand < 0.33) {
+                        itemsToGenerate = 2 // 33% chance of 2 items
+                    } else if (rand < 0.67) {
+                        itemsToGenerate = 1 // 34% chance of 1 item
                     }
-                    // else itemsToGenerate = 0
+                    // else itemsToGenerate = 0 (33% chance of 0 items)
 
                     for (let j = 0; j < itemsToGenerate; j++) {
                         const newParticle: DataParticle = {
@@ -138,12 +143,30 @@ export function DataPipelineDemo() {
                     }
                 }
 
+                // Process items from readers (1 item per second per reader)
+                for (let i = 0; i < Math.max(1, effectiveReaderCount); i++) {
+                    const itemsInBuffer = updated.filter(p => p.stage === 'buffer')
+                    if (itemsInBuffer.length > 0) {
+                        // Pick random buffer item for this consumer
+                        const itemIndex = Math.floor(Math.random() * itemsInBuffer.length)
+                        const itemToProcess = itemsInBuffer[itemIndex]
+                        const idx = updated.findIndex(p => p.id === itemToProcess.id)
+                        if (idx !== -1) {
+                            updated[idx].stage = 'reader'
+                            updated[idx].readerIndex = i
+                            updated[idx].createdAt = timeRef.current
+                            setBuffered((b) => Math.max(0, b - 1))
+                        }
+                    }
+                }
+
                 // Update particle positions and stages
                 updated = updated.map((particle) => {
                     let newParticle = { ...particle }
                     const timeInStage = timeRef.current - particle.createdAt
 
                     if (newParticle.stage === 'producer') {
+                        // Producer stage: 300ms animation
                         newParticle.progress = Math.min(timeInStage / 300, 1)
                         if (newParticle.progress >= 1) {
                             newParticle.stage = 'buffer'
@@ -151,57 +174,44 @@ export function DataPipelineDemo() {
                             setBuffered((b) => b + 1)
                         }
                     } else if (newParticle.stage === 'buffer') {
-                        // Time in buffer depends on reader count (readers process 2 items/sec each)
-                        const readerThroughput = Math.max(2, readerCount * 2)
-                        const bufferTime = Math.max(200, 1000 / readerThroughput)
-                        newParticle.progress = Math.min(timeInStage / bufferTime, 1)
-                        if (newParticle.progress >= 1) {
-                            newParticle.stage = 'reader'
-                            newParticle.createdAt = timeRef.current
-                            newParticle.readerIndex = Math.floor(Math.random() * Math.max(1, effectiveReaderCount))
-                            setBuffered((b) => Math.max(0, b - 1))
-                        }
+                        // Buffer stage: stays until processed by reader (no automatic transition)
+                        newParticle.progress = 0
                     } else if (newParticle.stage === 'reader') {
-                        // Validate reader index is still valid
-                        if (newParticle.readerIndex !== undefined && newParticle.readerIndex >= effectiveReaderCount) {
-                            // Reader was removed, move to database without processing
+                        // Reader stage: 400ms processing time
+                        newParticle.progress = Math.min(timeInStage / 400, 1)
+                        if (newParticle.progress >= 1) {
                             newParticle.stage = 'database'
                             newParticle.createdAt = timeRef.current
-                        } else {
-                            newParticle.progress = Math.min(timeInStage / 400, 1)
-                            if (newParticle.progress >= 1) {
-                                newParticle.stage = 'database'
-                                newParticle.createdAt = timeRef.current
-                                // Track which reader processed this
-                                const readerIndex = newParticle.readerIndex ?? 0
-                                setReaderStats((prev) => {
-                                    const newStats = [...prev]
-                                    if (readerIndex < newStats.length) {
-                                        newStats[readerIndex].consumed += 1
-                                        newStats[readerIndex].isReading = true
+                            // Track which reader processed this
+                            const readerIndex = newParticle.readerIndex ?? 0
+                            setReaderStats((prev) => {
+                                const newStats = [...prev]
+                                if (readerIndex < newStats.length) {
+                                    newStats[readerIndex].consumed += 1
+                                    newStats[readerIndex].isReading = true
 
-                                        // Clear existing timeout if any
-                                        if (newStats[readerIndex].readTimeout) {
-                                            clearTimeout(newStats[readerIndex].readTimeout as NodeJS.Timeout)
-                                        }
-
-                                        // Reset reading indicator after 300ms
-                                        newStats[readerIndex].readTimeout = setTimeout(() => {
-                                            setReaderStats((prev2) => {
-                                                const newStats2 = [...prev2]
-                                                if (readerIndex < newStats2.length) {
-                                                    newStats2[readerIndex].isReading = false
-                                                }
-                                                return newStats2
-                                            })
-                                        }, 300) as any
+                                    // Clear existing timeout if any
+                                    if (newStats[readerIndex].readTimeout) {
+                                        clearTimeout(newStats[readerIndex].readTimeout as NodeJS.Timeout)
                                     }
 
-                                    return newStats
-                                })
-                            }
+                                    // Reset reading indicator after 500ms
+                                    newStats[readerIndex].readTimeout = setTimeout(() => {
+                                        setReaderStats((prev2) => {
+                                            const newStats2 = [...prev2]
+                                            if (readerIndex < newStats2.length) {
+                                                newStats2[readerIndex].isReading = false
+                                            }
+                                            return newStats2
+                                        })
+                                    }, 500) as any
+                                }
+
+                                return newStats
+                            })
                         }
                     } else if (newParticle.stage === 'database') {
+                        // Database stage: 300ms animation then complete
                         newParticle.progress = Math.min(timeInStage / 300, 1)
                         if (newParticle.progress >= 1) {
                             setStored((s) => s + 1)
@@ -217,10 +227,10 @@ export function DataPipelineDemo() {
 
                 return updated.slice(-500) // Keep max 500 particles for performance
             })
-        }, 16)
+        }, 1000) // Run every 1 second
 
         return () => clearInterval(interval)
-    }, [isRunning, producerCount, effectiveReaderCount])
+    }, [isRunning, producerCount, effectiveReaderCount]) // Runs every 1 second
 
     // Calculate positions for each stage
     const getProducerPosition = (producerIndex: number) => {
@@ -274,7 +284,7 @@ export function DataPipelineDemo() {
             <div className="mb-6">
                 <h3 className="text-lg font-semibold text-white mb-2">Scalable Data Pipeline</h3>
                 <p className="text-sm text-[var(--color-text-primary)]">
-                    Interactive simulation of a distributed data streaming architecture. Scale producers to simulate variable data ingestion and consumers to optimize throughput. Producers emit 0-2 events/sec, consumers process 2 events/sec each.
+                    Interactive simulation of a distributed data streaming architecture. Scale producers to simulate variable data ingestion and consumers to optimize throughput. Producers emit 0-2 events/sec, consumers process 1 event/sec each.
                 </p>
             </div>
 
@@ -313,10 +323,10 @@ export function DataPipelineDemo() {
                                 onClick={() => setReaderCount(count)}
                                 disabled={autoScale}
                                 className={`flex-1 px-3 py-1 text-sm rounded font-medium transition ${autoScale
-                                        ? 'opacity-50 cursor-not-allowed bg-[var(--color-background-card)] text-[var(--color-text-secondary)] border border-[var(--color-border-secondary)]'
-                                        : readerCount === count
-                                            ? 'bg-[var(--color-primary)] text-white'
-                                            : 'bg-[var(--color-background-card)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:border-[var(--color-primary)]'
+                                    ? 'opacity-50 cursor-not-allowed bg-[var(--color-background-card)] text-[var(--color-text-secondary)] border border-[var(--color-border-secondary)]'
+                                    : readerCount === count
+                                        ? 'bg-[var(--color-primary)] text-white'
+                                        : 'bg-[var(--color-background-card)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:border-[var(--color-primary)]'
                                     }`}
                             >
                                 {count}
@@ -448,12 +458,10 @@ export function DataPipelineDemo() {
                     {/* Readers */}
                     {Array.from({ length: readerCount }).map((_, i) => {
                         const pos = getReaderPosition(i)
-                        const displayValue = readerStats[i]?.isReading
-                            ? (readerCount > 1 ? readerCount : 1)
-                            : 0
+                        const displayValue = readerStats[i]?.isReading ? 1 : 0
                         return (
                             <g key={`reader-${i}`}>
-                                <title>{`Consumer ${i + 1}: Processes 2 events per second`}</title>
+                                <title>{`Consumer ${i + 1}: Processes 1 event per second`}</title>
                                 {/* Consumer box */}
                                 <rect
                                     x={pos.x}
