@@ -32,7 +32,7 @@ export function MachineLearningContent({ coreProjects, modelingTechniques }: Mac
                 </h1>
                 <ProjectDescription
                     paragraphs={[
-                        "With an MSc in Data Science and 6+ years of industry experience, I specialize in building advanced machine learning systems that solve real-world problems. From fine-tuning medical prediction models at Pacmed to implementing cutting-edge 3D CNNs for geological modeling at Ideon, I combine theoretical rigor with practical deployment expertise.",
+                        "With an MSc in Data Science and 6+ years of industry experience, I specialize in building advanced machine learning systems that solve real-world problems. From fine-tuning advanced prediction models to implementing cutting-edge 3D CNNs for geological modeling, I combine theoretical rigor with practical deployment expertise.",
                         "My focus is on creating models that are not only accurate but also interpretable, maintainable, and production-ready. I approach each project with attention to rigorous evaluation, hyperparameter optimization, and understanding the business impact."
                     ]}
                 />
@@ -116,15 +116,14 @@ export function MachineLearningContent({ coreProjects, modelingTechniques }: Mac
                 </h2>
                 <div className="space-y-3 text-sm text-white">
                     <div>
-                        <p className="font-semibold text-[var(--color-primary)] mb-1">Credentials</p>
-                        <p className="text-white">MSc in Data Science – Maastricht University, Netherlands</p>
-                        <p className="text-white">BSc in Computer Science and Mathematics – McGill University, Canada</p>
+                        <p className="font-semibold text-[var(--color-primary)] mb-1">Expertise & Specialization</p>
+                        <p className="text-white">Specialized in advanced machine learning and deep learning systems with 6+ years of industry experience. Expert in building production-grade models that combine theoretical rigor with practical deployment, solving complex problems across diverse domains.</p>
                     </div>
                     <div>
-                        <p className="font-semibold text-[var(--color-primary)] mb-1">Recognition & Impact</p>
-                        <p className="text-white">• 250,000+ views on data science content and publications</p>
-                        <p className="text-white">• Presented at 2020 EDM Conference: "Course Recommender Systems with Statistical Confidence"</p>
-                        <p className="text-white">• 25+ professional development courses completed in ML, DL, and MLOps</p>
+                        <p className="font-semibold text-[var(--color-primary)] mb-1">Key Achievements</p>
+                        <p className="text-white">• Built interpretable classification models with significant performance improvements through advanced feature engineering</p>
+                        <p className="text-white">• Designed and deployed custom 3D deep learning architectures for complex multi-dimensional geological modelling</p>
+                        <p className="text-white">• Created production-grade anomaly detection systems with real-time monitoring and automated alerting for mission-critical operations</p>
                     </div>
                 </div>
             </div>

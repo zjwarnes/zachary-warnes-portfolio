@@ -55,10 +55,10 @@ export default function Home() {
         <section id="projects" className="min-h-screen flex items-center justify-center px-4 py-20">
           <div className="max-w-6xl w-full">
             <h2 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-4 text-center">
-              Featured Projects
+              Experience
             </h2>
             <p className="text-[var(--color-text-secondary)] text-center mb-16 max-w-2xl mx-auto">
-              Explore my latest work across different domains of AI and machine learning.
+              Explore my experience across different domains of LLMs, Data Engineering, and Machine Learning.
             </p>
 
             {/* Project widgets grid */}

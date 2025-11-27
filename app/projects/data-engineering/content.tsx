@@ -32,7 +32,7 @@ export function DataEngineeringContent({ coreProjects, systemArchitecture }: Dat
                 </h1>
                 <ProjectDescription
                     paragraphs={[
-                        "Expert in designing and implementing large-scale data systems that handle complex data flows, distributed architectures, and real-time processing. With experience at Ideon processing data from 100+ global sensors and establishing ETL pipelines handling terabytes of medical data at Pacmed, I specialize in building robust, scalable infrastructure.",
+                        "Expert in designing and implementing large-scale data systems that handle complex data flows, distributed architectures, and real-time processing. With years of experience processing terabytes of data from 100s of global sensors in the mining space and years of experience creating ETL pipelines for terabytes of medical data in healthcare. I specialize in building robust, scalable infrastructure.",
                         "My approach combines cloud-native architectures (Kubernetes, serverless), event-driven design patterns, and comprehensive monitoring to create systems that are both performant and maintainable."
                     ]}
                 />
@@ -121,7 +121,7 @@ export function DataEngineeringContent({ coreProjects, systemArchitecture }: Dat
                     </div>
                     <div>
                         <p className="font-semibold text-[var(--color-primary)] mb-1">Key Achievements</p>
-                        <p className="text-white">• Architected systems processing 100+ global data streams handling terabytes of medical data daily</p>
+                        <p className="text-white">• Architected systems processing 100+ global data streams handling terabytes of data</p>
                         <p className="text-white">• Delivered 50% performance improvements through Kubernetes-based infrastructure optimization</p>
                         <p className="text-white">• Built monitoring systems ensuring 99.9% data reliability and uptime for mission-critical operations</p>
                     </div>

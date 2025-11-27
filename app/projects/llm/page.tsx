@@ -125,6 +125,24 @@ export default function LLMPage() {
                   </div>
                 </div>
               </div>
+
+              <div>
+                <h2 className="font-semibold text-xl mb-4 tracking-tighter">
+                  Professional Background
+                </h2>
+                <div className="space-y-3 text-sm text-white">
+                  <div>
+                    <p className="font-semibold text-[var(--color-primary)] mb-1">Expertise & Specialization</p>
+                    <p className="text-white">Specialized in building enterprise-scale LLM and RAG applications with proven expertise in production deployment. Expert in combining language models with retrieval systems to create intelligent solutions that deliver measurable business value across diverse domains.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[var(--color-primary)] mb-1">Key Achievements</p>
+                    <p className="text-white">• Deployed production RAG systems enabling hundreds of users to efficiently query and analyze proprietary knowledge bases</p>
+                    <p className="text-white">• Built end-to-end NLP pipelines for intelligent document processing and semantic search across large repositories</p>
+                    <p className="text-white">• Created conversational interfaces combining fine-tuned language models with retrieval mechanisms for accessible knowledge access</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </ProjectLayout>
         </Container>
