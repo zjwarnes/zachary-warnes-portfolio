@@ -4,6 +4,7 @@ import { DemoReveal } from '@/app/components/projects/demo-reveal'
 import ProjectLayout from '@/app/components/project-layout'
 import { ProjectDescription } from '@/app/components/projects/project-description'
 import { DataEngineeringContent } from './content'
+import { DataPipelineDemo } from '@/app/components/projects/data-engineering/data-pipeline-demo'
 import Link from 'next/link'
 
 const coreProjects = [
@@ -69,36 +70,8 @@ export default function DataEngineeringPage() {
                     </Link>
                     <ProjectLayout
                         demo={
-                            <DemoReveal title="Data Engineering Demo">
-                                <div className="h-full flex flex-col items-center justify-center">
-                                    <div className="text-center">
-                                        <div className="text-6xl mb-4">⚙️</div>
-                                        <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">
-                                            Data Pipelines & Infrastructure
-                                        </h3>
-                                        <p className="text-[var(--color-text-primary)] text-sm">
-                                            Designing and deploying scalable systems to process and monitor billions of data points across global infrastructure.
-                                        </p>
-                                        <div className="mt-8 space-y-3 text-sm text-[var(--color-text-primary)]">
-                                            <div className="flex items-start gap-2">
-                                                <span className="text-[var(--color-primary)] flex-shrink-0">→</span>
-                                                <span>100+ sensors monitored in real-time</span>
-                                            </div>
-                                            <div className="flex items-start gap-2">
-                                                <span className="text-[var(--color-primary)] flex-shrink-0">→</span>
-                                                <span>Terabytes of data processed daily</span>
-                                            </div>
-                                            <div className="flex items-start gap-2">
-                                                <span className="text-[var(--color-primary)] flex-shrink-0">→</span>
-                                                <span>50% reduction in processing time</span>
-                                            </div>
-                                            <div className="flex items-start gap-2">
-                                                <span className="text-[var(--color-primary)] flex-shrink-0">→</span>
-                                                <span>99.9% data reliability</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <DemoReveal title="Data Pipeline Demo">
+                                <DataPipelineDemo />
                             </DemoReveal>
                         }
                     >
