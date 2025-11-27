@@ -57,7 +57,7 @@ export function DataEngineeringContent({ coreProjects, systemArchitecture }: Dat
                                     </h3>
                                 </div>
                             </div>
-                            <p className="text-sm text-[var(--color-text-secondary)] mb-2">
+                            <p className="text-base text-white font-semibold mb-2">
                                 {project.description}
                             </p>
                             {expandedProject === index && (
@@ -99,7 +99,7 @@ export function DataEngineeringContent({ coreProjects, systemArchitecture }: Dat
                                 {category.items.map((item, i) => (
                                     <span
                                         key={i}
-                                        className="px-3 py-1 bg-[var(--color-border-primary)] text-[var(--color-text-secondary)] rounded text-xs"
+                                        className="px-3 py-1 bg-[var(--color-border-primary)] text-[var(--color-text-primary)] rounded text-xs"
                                     >
                                         {item}
                                     </span>
@@ -107,6 +107,24 @@ export function DataEngineeringContent({ coreProjects, systemArchitecture }: Dat
                             </div>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            <div>
+                <h2 className="font-semibold text-xl mb-4 tracking-tighter">
+                    Professional Background
+                </h2>
+                <div className="space-y-3 text-sm text-white">
+                    <div>
+                        <p className="font-semibold text-[var(--color-primary)] mb-1">Expertise & Certifications</p>
+                        <p className="text-white">Specialized in cloud-native architecture, distributed systems, and ETL pipeline design with 6+ years of industry experience across biotech and scientific tech sectors.</p>
+                    </div>
+                    <div>
+                        <p className="font-semibold text-[var(--color-primary)] mb-1">Key Achievements</p>
+                        <p className="text-white">• Architected systems processing 100+ global data streams handling terabytes of medical data daily</p>
+                        <p className="text-white">• Delivered 50% performance improvements through Kubernetes-based infrastructure optimization</p>
+                        <p className="text-white">• Built monitoring systems ensuring 99.9% data reliability and uptime for mission-critical operations</p>
+                    </div>
                 </div>
             </div>
         </div>

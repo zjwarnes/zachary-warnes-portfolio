@@ -1,7 +1,17 @@
 import { Container } from '@/app/components/container'
+import { ParticleBackground } from '@/app/components/particle-background'
+import { DemoReveal } from '@/app/components/projects/demo-reveal'
 import ProjectLayout from '@/app/components/project-layout'
 import { ProjectDescription } from '@/app/components/projects/project-description'
 import { MachineLearningContent } from './content'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+
+// Dynamically import the vision demo with ssr disabled
+const CharacterDetectionDemo = dynamic(
+  () => import('@/app/components/projects/vision/CharacterDetectionDemo').then(mod => mod.CharacterDetectionDemo),
+  { ssr: false }
+)
 
 const coreProjects = [
   {
@@ -70,32 +80,26 @@ export const metadata = {
 
 export default function MachineLearningPage() {
   return (
-    <Container>
-      <ProjectLayout
-        demo={
-          <div className="h-full flex flex-col items-center justify-center">
-            <div className="text-center">
-              <div className="text-6xl mb-4">🧠</div>
-              <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-2">
-                Advanced Predictive Models
-              </h3>
-              <p className="text-[var(--color-text-secondary)] text-sm mb-6">
-                Building state-of-the-art machine learning systems with rigorous evaluation and production-grade reliability.
-              </p>
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                {competencies.map((comp, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <span className="text-[var(--color-primary)]">✓</span>
-                    <span className="text-[var(--color-text-secondary)]">{comp}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        }
-      >
-        <MachineLearningContent coreProjects={coreProjects} modelingTechniques={modelingTechniques} />
-      </ProjectLayout>
-    </Container>
+    <div className="relative min-h-screen bg-[var(--color-background-dark)]">
+      <ParticleBackground />
+      <div className="relative z-10">
+        <Container>
+          <Link href="/" className="inline-flex items-center gap-2 mb-8 text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors duration-200 font-medium">
+            <span>←</span> Back to Home
+          </Link>
+          <ProjectLayout
+            demo={
+              <DemoReveal title="Machine Learning Demo">
+                <div className="h-full flex flex-col overflow-y-auto">
+                  <CharacterDetectionDemo />
+                </div>
+              </DemoReveal>
+            }
+          >
+            <MachineLearningContent coreProjects={coreProjects} modelingTechniques={modelingTechniques} />
+          </ProjectLayout>
+        </Container>
+      </div>
+    </div>
   );
 }

@@ -99,21 +99,34 @@ export default function Home() {
               Feel free to reach out!
             </p>
 
-            {/* Placeholder for contact form or links */}
+            {/* Contact links */}
             <div className="p-8 rounded-xl border border-[var(--color-border-primary)] bg-gradient-to-br from-[var(--color-background-card)] to-transparent backdrop-blur-sm">
               <p className="text-[var(--color-text-secondary)] mb-6">
-                Contact information coming soon...
+                Get in touch through any of these channels:
               </p>
-              <div className="flex justify-center gap-4">
-                <button className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all">
+              <div className="flex justify-center gap-4 flex-wrap">
+                <a
+                  href="mailto:zjwarnes@gmail.com"
+                  className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all"
+                >
                   Email
-                </button>
-                <button className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all">
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/zjwarnes/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all"
+                >
                   LinkedIn
-                </button>
-                <button className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all">
+                </a>
+                <a
+                  href="https://github.com/zjwarnes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all"
+                >
                   GitHub
-                </button>
+                </a>
               </div>
             </div>
           </div>

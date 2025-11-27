@@ -57,7 +57,7 @@ export function MachineLearningContent({ coreProjects, modelingTechniques }: Mac
                                     </h3>
                                 </div>
                             </div>
-                            <p className="text-sm text-[var(--color-text-secondary)] mb-2">
+                            <p className="text-base text-white font-semibold mb-2">
                                 {project.description}
                             </p>
                             {expandedProject === index && (
@@ -99,7 +99,7 @@ export function MachineLearningContent({ coreProjects, modelingTechniques }: Mac
                                 {category.items.map((item, i) => (
                                     <span
                                         key={i}
-                                        className="px-3 py-1 bg-[var(--color-border-primary)] text-[var(--color-text-secondary)] rounded text-xs"
+                                        className="px-3 py-1 bg-[var(--color-border-primary)] text-[var(--color-text-primary)] rounded text-xs"
                                     >
                                         {item}
                                     </span>
@@ -112,19 +112,19 @@ export function MachineLearningContent({ coreProjects, modelingTechniques }: Mac
 
             <div>
                 <h2 className="font-semibold text-xl mb-4 tracking-tighter">
-                    Education & Achievements
+                    Professional Background
                 </h2>
-                <div className="space-y-3 text-sm text-[var(--color-text-secondary)]">
+                <div className="space-y-3 text-sm text-white">
                     <div>
-                        <p className="font-semibold text-[var(--color-text-primary)] mb-1">Education</p>
-                        <p>MSc in Data Science – Maastricht University, Netherlands</p>
-                        <p>BSc in Computer Science and Mathematics – McGill University, Canada</p>
+                        <p className="font-semibold text-[var(--color-primary)] mb-1">Credentials</p>
+                        <p className="text-white">MSc in Data Science – Maastricht University, Netherlands</p>
+                        <p className="text-white">BSc in Computer Science and Mathematics – McGill University, Canada</p>
                     </div>
                     <div>
-                        <p className="font-semibold text-[var(--color-text-primary)] mb-1">Recognition</p>
-                        <p>• 250,000+ views on data science articles</p>
-                        <p>• Presented at 2020 EDM Conference: "Course Recommender Systems with Statistical Confidence"</p>
-                        <p>• Completed 25+ online courses in ML, DL, and MLOps</p>
+                        <p className="font-semibold text-[var(--color-primary)] mb-1">Recognition & Impact</p>
+                        <p className="text-white">• 250,000+ views on data science content and publications</p>
+                        <p className="text-white">• Presented at 2020 EDM Conference: "Course Recommender Systems with Statistical Confidence"</p>
+                        <p className="text-white">• 25+ professional development courses completed in ML, DL, and MLOps</p>
                     </div>
                 </div>
             </div>

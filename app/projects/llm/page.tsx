@@ -2,7 +2,10 @@ import ProjectLayout from '@/app/components/project-layout';
 import { Container } from '@/app/components/container';
 import { ProjectDescription } from '@/app/components/projects/project-description';
 import { ApplicationCard } from '@/app/components/projects/llm/application-card';
+import { ParticleBackground } from '@/app/components/particle-background';
+import { DemoReveal } from '@/app/components/projects/demo-reveal';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 // Dynamically import the LLM components with ssr disabled
 const RAGLLMDemo = dynamic(
@@ -43,79 +46,89 @@ export const metadata = {
 
 export default function LLMPage() {
   return (
-    <Container>
-      <ProjectLayout
-        demo={
-          <LLMErrorBoundary>
-            <RAGLLMDemo />
-          </LLMErrorBoundary>
-        }
-      >
-        <div className="space-y-8">
-          <div>
-            <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-              LLMs & RAG Expertise
-            </h1>
-            <ProjectDescription
-              paragraphs={[
-                "Specialized in building enterprise-scale LLM applications with Retrieval-Augmented Generation (RAG). With experience deploying production systems at Ideon and creating advanced AI tutoring systems, I combine LangChain, vector databases, and fine-tuned models to create intelligent systems that understand domain-specific knowledge.",
-                "This demo showcases a browser-based RAG system where you can upload documents and have intelligent conversations about their content. All processing happens locally for complete privacy and security."
-              ]}
-            />
-          </div>
+    <div className="relative min-h-screen bg-[var(--color-background-dark)]">
+      <ParticleBackground />
+      <div className="relative z-10">
+        <Container>
+          <Link href="/" className="inline-flex items-center gap-2 mb-8 text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors duration-200 font-medium">
+            <span>←</span> Back to Home
+          </Link>
+          <ProjectLayout
+            demo={
+              <DemoReveal title="LLMs & RAG Demo">
+                <LLMErrorBoundary>
+                  <RAGLLMDemo />
+                </LLMErrorBoundary>
+              </DemoReveal>
+            }
+          >
+            <div className="space-y-8">
+              <div>
+                <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
+                  LLMs & RAG Expertise
+                </h1>
+                <ProjectDescription
+                  paragraphs={[
+                    "Specialized in building enterprise-scale LLM applications with Retrieval-Augmented Generation (RAG). With experience deploying production systems at Ideon and creating advanced AI tutoring systems, I combine LangChain, vector databases, and fine-tuned models to create intelligent systems that understand domain-specific knowledge.",
+                    "This demo showcases a browser-based RAG system where you can upload documents and have intelligent conversations about their content. All processing happens locally for complete privacy and security."
+                  ]}
+                />
+              </div>
 
-          <div>
-            <h2 className="font-semibold text-xl mb-4 tracking-tighter">
-              What I Offer
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2">
-              {coreProjects.map((project, index) => (
-                <ApplicationCard key={index} {...project} />
-              ))}
-            </div>
-          </div>
+              <div>
+                <h2 className="font-semibold text-xl mb-4 tracking-tighter">
+                  What I Offer
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2">
+                  {coreProjects.map((project, index) => (
+                    <ApplicationCard key={index} {...project} />
+                  ))}
+                </div>
+              </div>
 
-          <div>
-            <h2 className="font-semibold text-xl mb-4 tracking-tighter">
-              Technical Stack
-            </h2>
-            <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
-                <p className="font-semibold text-[var(--color-primary)] mb-2">LLM Frameworks</p>
-                <ul className="space-y-1 text-[var(--color-text-secondary)]">
-                  <li>• LangChain</li>
-                  <li>• Prompt Engineering</li>
-                  <li>• Fine-tuning & Adaptation</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold text-[var(--color-primary)] mb-2">Vector Databases</p>
-                <ul className="space-y-1 text-[var(--color-text-secondary)]">
-                  <li>• Pinecone</li>
-                  <li>• Weaviate</li>
-                  <li>• FAISS</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold text-[var(--color-primary)] mb-2">Cloud & Deployment</p>
-                <ul className="space-y-1 text-[var(--color-text-secondary)]">
-                  <li>• Azure</li>
-                  <li>• AWS Lambda</li>
-                  <li>• REST APIs</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold text-[var(--color-primary)] mb-2">Full Stack</p>
-                <ul className="space-y-1 text-[var(--color-text-secondary)]">
-                  <li>• FastAPI/Flask</li>
-                  <li>• React</li>
-                  <li>• Document Processing</li>
-                </ul>
+                <h2 className="font-semibold text-xl mb-4 tracking-tighter">
+                  Technical Stack
+                </h2>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <p className="font-semibold text-[var(--color-primary)] mb-2">LLM Frameworks</p>
+                    <ul className="space-y-1 text-[var(--color-text-primary)]">
+                      <li>• LangChain</li>
+                      <li>• Prompt Engineering</li>
+                      <li>• Fine-tuning & Adaptation</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[var(--color-primary)] mb-2">Vector Databases</p>
+                    <ul className="space-y-1 text-[var(--color-text-primary)]">
+                      <li>• Pinecone</li>
+                      <li>• Weaviate</li>
+                      <li>• FAISS</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[var(--color-primary)] mb-2">Cloud & Deployment</p>
+                    <ul className="space-y-1 text-[var(--color-text-primary)]">
+                      <li>• Azure</li>
+                      <li>• AWS Lambda</li>
+                      <li>• REST APIs</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[var(--color-primary)] mb-2">Full Stack</p>
+                    <ul className="space-y-1 text-[var(--color-text-primary)]">
+                      <li>• FastAPI/Flask</li>
+                      <li>• React</li>
+                      <li>• Document Processing</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </ProjectLayout>
-    </Container>
+          </ProjectLayout>
+        </Container>
+      </div>
+    </div>
   );
 }
