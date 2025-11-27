@@ -19,9 +19,9 @@ export default function Home() {
               <p className="text-lg md:text-xl text-[var(--color-primary)] font-semibold mb-4 tracking-wide">
                 Hi, I'm Zachary Warnes
               </p>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-text-primary)] mb-4 leading-tight">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-text-primary)] mb-4 leading-tight tracking-normal overflow-hidden">
                 AI & Machine Learning
-                <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent whitespace-nowrap">
                   Engineer
                 </span>
               </h1>
