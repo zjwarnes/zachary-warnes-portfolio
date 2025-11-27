@@ -16,20 +16,23 @@ const coreProjects = [
   {
     title: "Predictive Classification Systems",
     description: "Built production-grade classification models with advanced feature engineering and model interpretability. Achieved significant performance improvements through rigorous evaluation and hyperparameter optimization.",
-    skills: ["PyTorch", "Feature Engineering", "SHAP", "Model Interpretation"],
-    value: "Delivers interpretable, production-ready models that solve complex business problems with measurable impact. 2+ years in this role."
+    impact: "Delivers interpretable, production-ready models that solve complex business problems with measurable impact.",
+    technologies: ["PyTorch", "Feature Engineering", "SHAP", "Model Interpretation"],
+    icon: "🧠"
   },
   {
     title: "Computer Vision & Deep Learning",
     description: "Designed and implemented deep learning architectures including CNNs and advanced neural networks for image analysis and pattern recognition tasks at scale.",
-    skills: ["TensorFlow", "CNNs", "Computer Vision", "3D Learning"],
-    value: "Applies cutting-edge deep learning techniques to solve visual recognition and analysis challenges. 2+ years in this role."
+    impact: "Applies cutting-edge deep learning techniques to solve visual recognition and analysis challenges.",
+    technologies: ["TensorFlow", "CNNs", "Computer Vision", "3D Learning"],
+    icon: "👁️"
   },
   {
     title: "Anomaly Detection & Monitoring",
     description: "Developed production-grade anomaly detection systems with real-time monitoring, automated alerting, and containerized REST APIs for continuous data quality assurance.",
-    skills: ["Python", "FastAPI", "Docker", "Real-time Monitoring"],
-    value: "Ensures data quality and system reliability through proactive anomaly detection and rapid response mechanisms. 2+ years in this role."
+    impact: "Ensures data quality and system reliability through proactive anomaly detection and rapid response mechanisms.",
+    technologies: ["Python", "FastAPI", "Docker", "Real-time Monitoring"],
+    icon: "⚠️"
   }
 ];
 
