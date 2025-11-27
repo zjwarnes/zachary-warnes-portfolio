@@ -88,8 +88,8 @@ export function LLMDemo() {
             <p><strong>Note:</strong></p>
             <ul className="list-disc list-inside space-y-1">
               <li>Model, inference, and document retrieval all run locally in your browser</li>
-              <li>Responses typically generate in 2-5 seconds</li>
-              <li>The model has access to Zac's resume for context</li>
+              <li>Responses can be slower depending on your device</li>
+              <li>The model has access to Zac's resume for context but may not always provide accurate or complete information</li>
             </ul>
           </div>
         </div>
