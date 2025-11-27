@@ -8,8 +8,8 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 // Dynamically import the LLM components with ssr disabled
-const RAGLLMDemo = dynamic(
-  () => import('@/app/components/projects/llm/rag/rag-llm-demo').then(mod => mod.RAGLLMDemo),
+const LLMDemo = dynamic(
+  () => import('@/app/components/projects/llm/llm-demo').then(mod => mod.LLMDemo),
   { ssr: false }
 );
 
@@ -57,7 +57,7 @@ export default function LLMPage() {
             demo={
               <DemoReveal title="LLMs & RAG Demo">
                 <LLMErrorBoundary>
-                  <RAGLLMDemo />
+                  <LLMDemo />
                 </LLMErrorBoundary>
               </DemoReveal>
             }
@@ -69,8 +69,8 @@ export default function LLMPage() {
                 </h1>
                 <ProjectDescription
                   paragraphs={[
-                    "Specialized in building enterprise-scale LLM applications with Retrieval-Augmented Generation (RAG). I combine LangChain, vector databases, and fine-tuned models to create intelligent systems that understand domain-specific knowledge and deliver measurable business value.",
-                    "This demo showcases a browser-based RAG system where you can upload documents and have intelligent conversations about their content. All processing happens locally for complete privacy and security."
+                    "Specialized in building enterprise-scale LLM applications with Retrieval-Augmented Generation (RAG). I combine vector embeddings, semantic search, and language models to create intelligent systems that understand context and deliver accurate, personalized responses.",
+                    "This demo showcases a browser-based LLM system with embedded resume context. The model uses semantic search to retrieve relevant professional experiences and skills, then incorporates them into responses for highly personalized conversations. All processing happens locally in your browser for complete privacy."
                   ]}
                 />
               </div>

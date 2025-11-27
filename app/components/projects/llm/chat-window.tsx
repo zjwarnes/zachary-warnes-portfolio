@@ -9,7 +9,7 @@ interface TextChunk {
 }
 
 interface ChatWindowProps {
-  messages: Array<{ role: 'user' | 'assistant', content: string, sources?: TextChunk[] }>;
+  messages: Array<{ role: 'user' | 'assistant', content: string, sources?: Array<{ text: string; id: string }> }>;
   onSendMessage: (message: string) => void;
   isGenerating: boolean;
 }
@@ -45,8 +45,8 @@ export function ChatWindow({ messages, onSendMessage, isGenerating }: ChatWindow
             >
               <div
                 className={`max-w-[80%] rounded-lg p-3 ${message.role === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-700 text-white'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-700 text-white'
                   }`}
               >
                 {message.content}
@@ -59,8 +59,7 @@ export function ChatWindow({ messages, onSendMessage, isGenerating }: ChatWindow
                   <div className="mt-2 space-y-2 text-xs">
                     {message.sources.map((source, idx) => (
                       <div key={idx} className="border-l-2 border-blue-500 pl-2">
-                        <p className="font-medium text-gray-200">Page {source.pageNumber || 'N/A'}</p>
-                        <p className="text-gray-400 line-clamp-2">{source.text.substring(0, 100)}...</p>
+                        <p className="text-gray-400 line-clamp-3">{source.text.substring(0, 150)}...</p>
                       </div>
                     ))}
                   </div>

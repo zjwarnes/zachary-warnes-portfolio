@@ -13,15 +13,15 @@ export default function Home() {
       <div className="relative z-10">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center px-4 py-20">
-          <div className="max-w-4xl w-full text-center">
+          <div className="max-w-4xl w-full text-center overflow-hidden">
             {/* Animated gradient text */}
             <div className="mb-6">
               <p className="text-lg md:text-xl text-[var(--color-primary)] font-semibold mb-4 tracking-wide">
                 Hi, I'm Zachary Warnes
               </p>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-text-primary)] mb-4 leading-tight tracking-normal overflow-hidden">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-text-primary)] mb-4 leading-tight tracking-normal">
                 AI & Machine Learning
-                <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent whitespace-nowrap">
+                <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                   Engineer
                 </span>
               </h1>

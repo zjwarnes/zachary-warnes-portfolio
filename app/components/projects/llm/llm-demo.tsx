@@ -10,6 +10,7 @@ import { useModelCleanup } from './model-cleanup';
 type Message = {
   role: 'user' | 'assistant';
   content: string;
+  sources?: Array<{ text: string; id: string }>;
 }
 
 export function LLMDemo() {
@@ -17,7 +18,7 @@ export function LLMDemo() {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [systemPrompt, setSystemPrompt] = useState(
-    "You are an AI assistant. Respond in markdown."
+    "You are an AI assistant that answers questions about Zachary Warnes' professional background and skills. Be friendly and professional, and reference specific projects or experiences from the resume when relevant."
   );
   const [messages, setMessages] = useState<Message[]>([]);
   const [loadingProgress, setLoadingProgress] = useState<string>('');
@@ -64,7 +65,8 @@ export function LLMDemo() {
       console.log('Response generated:', result);
       setMessages((prev: Message[]) => [...prev, {
         role: 'assistant',
-        content: result
+        content: result.response,
+        sources: result.sources
       }]);
     } catch (error) {
       console.error('Error generating response:', error);
