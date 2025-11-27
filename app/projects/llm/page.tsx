@@ -93,34 +93,34 @@ export default function LLMPage() {
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
                     <p className="font-semibold text-[var(--color-primary)] mb-2">LLM Frameworks</p>
-                    <ul className="space-y-1 text-[var(--color-text-primary)]">
-                      <li>• LangChain</li>
-                      <li>• Prompt Engineering</li>
-                      <li>• Fine-tuning & Adaptation</li>
+                    <ul className="space-y-1 text-[var(--color-text-primary)] list-disc list-inside">
+                      <li>LangChain</li>
+                      <li>Prompt Engineering</li>
+                      <li>Fine-tuning & Adaptation</li>
                     </ul>
                   </div>
                   <div>
                     <p className="font-semibold text-[var(--color-primary)] mb-2">Vector Databases</p>
-                    <ul className="space-y-1 text-[var(--color-text-primary)]">
-                      <li>• Pinecone</li>
-                      <li>• Weaviate</li>
-                      <li>• FAISS</li>
+                    <ul className="space-y-1 text-[var(--color-text-primary)] list-disc list-inside">
+                      <li>Pinecone</li>
+                      <li>Weaviate</li>
+                      <li>FAISS</li>
                     </ul>
                   </div>
                   <div>
                     <p className="font-semibold text-[var(--color-primary)] mb-2">Cloud & Deployment</p>
-                    <ul className="space-y-1 text-[var(--color-text-primary)]">
-                      <li>• Azure</li>
-                      <li>• AWS Lambda</li>
-                      <li>• REST APIs</li>
+                    <ul className="space-y-1 text-[var(--color-text-primary)] list-disc list-inside">
+                      <li>Azure</li>
+                      <li>AWS Lambda</li>
+                      <li>REST APIs</li>
                     </ul>
                   </div>
                   <div>
                     <p className="font-semibold text-[var(--color-primary)] mb-2">Full Stack</p>
-                    <ul className="space-y-1 text-[var(--color-text-primary)]">
-                      <li>• FastAPI/Flask</li>
-                      <li>• React</li>
-                      <li>• Document Processing</li>
+                    <ul className="space-y-1 text-[var(--color-text-primary)] list-disc list-inside">
+                      <li>FastAPI/Flask</li>
+                      <li>React</li>
+                      <li>Document Processing</li>
                     </ul>
                   </div>
                 </div>

@@ -82,6 +82,19 @@ export function DataPipelineDemo() {
         })
     }, [readerCount])
 
+    // Handle auto-scaling reader expansion
+    useEffect(() => {
+        if (autoScale && effectiveReaderCount > readerStats.length) {
+            setReaderStats((prev) => {
+                const newStats = [...prev]
+                while (newStats.length < effectiveReaderCount) {
+                    newStats.push({ consumed: 0, isReading: false, readTimeout: null })
+                }
+                return newStats
+            })
+        }
+    }, [autoScale, effectiveReaderCount, readerStats.length])
+
     // Auto-scaling logic
     useEffect(() => {
         if (!autoScale) {
@@ -143,11 +156,11 @@ export function DataPipelineDemo() {
                     }
                 }
 
-                // Process items from readers (1 item per second per reader)
+                // Process items from readers (2 items per second per reader)
                 for (let i = 0; i < Math.max(1, effectiveReaderCount); i++) {
                     const itemsInBuffer = updated.filter(p => p.stage === 'buffer')
-                    if (itemsInBuffer.length > 0) {
-                        // Pick random buffer item for this consumer
+                    // Process up to 2 items per reader per second
+                    for (let j = 0; j < 2 && itemsInBuffer.length > 0; j++) {
                         const itemIndex = Math.floor(Math.random() * itemsInBuffer.length)
                         const itemToProcess = itemsInBuffer[itemIndex]
                         const idx = updated.findIndex(p => p.id === itemToProcess.id)
@@ -156,6 +169,8 @@ export function DataPipelineDemo() {
                             updated[idx].readerIndex = i
                             updated[idx].createdAt = timeRef.current
                             setBuffered((b) => Math.max(0, b - 1))
+                            // Remove from itemsInBuffer so we don't pick it again
+                            itemsInBuffer.splice(itemIndex, 1)
                         }
                     }
                 }
@@ -284,7 +299,7 @@ export function DataPipelineDemo() {
             <div className="mb-6">
                 <h3 className="text-lg font-semibold text-white mb-2">Scalable Data Pipeline</h3>
                 <p className="text-sm text-[var(--color-text-primary)]">
-                    Interactive simulation of a distributed data streaming architecture. Scale producers to simulate variable data ingestion and consumers to optimize throughput. Producers emit 0-2 events/sec, consumers process 1 event/sec each.
+                    Interactive simulation of a distributed data streaming architecture. Scale producers to simulate variable data ingestion and consumers to optimize throughput. Producers emit 0-2 events/sec, consumers process 2 events/sec each.
                 </p>
             </div>
 
@@ -456,12 +471,12 @@ export function DataPipelineDemo() {
                     </g>
 
                     {/* Readers */}
-                    {Array.from({ length: readerCount }).map((_, i) => {
+                    {Array.from({ length: autoScale ? effectiveReaderCount : readerCount }).map((_, i) => {
                         const pos = getReaderPosition(i)
                         const displayValue = readerStats[i]?.isReading ? 1 : 0
                         return (
                             <g key={`reader-${i}`}>
-                                <title>{`Consumer ${i + 1}: Processes 1 event per second`}</title>
+                                <title>{`Consumer ${i + 1}: Processes 2 events per second`}</title>
                                 {/* Consumer box */}
                                 <rect
                                     x={pos.x}
@@ -541,7 +556,7 @@ export function DataPipelineDemo() {
                     })}
 
                     {/* Arrow from buffer to readers */}
-                    {Array.from({ length: readerCount }).map((_, i) => {
+                    {Array.from({ length: autoScale ? effectiveReaderCount : readerCount }).map((_, i) => {
                         const readerPos = getReaderPosition(i)
                         return (
                             <line

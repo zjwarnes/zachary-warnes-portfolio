@@ -117,9 +117,9 @@ export default function MachineLearningPage() {
                   {modelingTechniques.map((category, index) => (
                     <div key={index}>
                       <p className="font-semibold text-[var(--color-primary)] mb-2">{category.name}</p>
-                      <ul className="space-y-1 text-[var(--color-text-primary)]">
+                      <ul className="space-y-1 text-[var(--color-text-primary)] list-disc list-inside">
                         {category.items.map((item, i) => (
-                          <li key={i}>• {item}</li>
+                          <li key={i}>{item}</li>
                         ))}
                       </ul>
                     </div>
