@@ -21,21 +21,21 @@ const LLMErrorBoundary = dynamic(
 const coreProjects = [
   {
     title: "AI Knowledge Assistant",
-    description: "RAG-based system deployed in production at Ideon enabling hundreds of users to query thousands of proprietary documents for scientific analysis.",
+    description: "RAG-based system deployed in production enabling hundreds of users to query thousands of proprietary documents for analysis.",
     skills: ["RAG", "LangChain", "Pinecone", "REST APIs"],
-    value: "Enables instant access to proprietary knowledge base, improving research efficiency and ensuring knowledge consistency across teams."
+    value: "Enables instant access to knowledge base, improving research efficiency and ensuring knowledge consistency across teams. 1+ years in this role."
   },
   {
     title: "Intelligent Document Processing",
     description: "NLP pipeline for processing and analyzing technical documents, extracting key insights and enabling semantic search across document repositories.",
     skills: ["Document parsing", "Embeddings", "Vector search", "Information extraction"],
-    value: "Reduces document analysis time by 80% and improves knowledge discovery for research and decision-making."
+    value: "Reduces document analysis time significantly and improves knowledge discovery for research and decision-making. 1+ years in this role."
   },
   {
     title: "Conversational Query Interface",
     description: "End-to-end system combining fine-tuned language models with retrieval mechanisms to provide accurate, context-aware responses to user queries.",
     skills: ["LLM fine-tuning", "Prompt engineering", "Context management", "API integration"],
-    value: "Provides natural language interface to complex databases, making specialized knowledge accessible to non-technical users."
+    value: "Provides natural language interface to complex databases, making specialized knowledge accessible to non-technical users. 1+ years in this role."
   }
 ];
 
@@ -69,7 +69,7 @@ export default function LLMPage() {
                 </h1>
                 <ProjectDescription
                   paragraphs={[
-                    "Specialized in building enterprise-scale LLM applications with Retrieval-Augmented Generation (RAG). With experience deploying production systems at Ideon and creating advanced AI tutoring systems, I combine LangChain, vector databases, and fine-tuned models to create intelligent systems that understand domain-specific knowledge.",
+                    "Specialized in building enterprise-scale LLM applications with Retrieval-Augmented Generation (RAG). I combine LangChain, vector databases, and fine-tuned models to create intelligent systems that understand domain-specific knowledge and deliver measurable business value.",
                     "This demo showcases a browser-based RAG system where you can upload documents and have intelligent conversations about their content. All processing happens locally for complete privacy and security."
                   ]}
                 />
