@@ -8,7 +8,7 @@ import { modelManager } from './llm-initialization';
 import { useModelCleanup } from './model-cleanup';
 
 type Message = {
-  role: ChatCompletionMessageParam['role'];
+  role: 'user' | 'assistant';
   content: string;
 }
 
@@ -52,24 +52,24 @@ export function LLMDemo() {
   const handleSendMessage = async (userMessage: string) => {
     if (isGenerating) return;
 
-    console.log('Sending message:', userMessage);   
+    console.log('Sending message:', userMessage);
 
-    const newMessages = [...messages, { role: 'user', content: userMessage }];
+    const newMessages: Message[] = [...messages, { role: 'user', content: userMessage }];
     setMessages(newMessages);
-    
+
     setIsGenerating(true);
     try {
       console.log('Generating response...');
       const result = await modelManager.generateResponse(systemPrompt, userMessage);
       console.log('Response generated:', result);
-      setMessages((prev: Message[]) => [...prev, { 
-        role: 'assistant', 
+      setMessages((prev: Message[]) => [...prev, {
+        role: 'assistant',
         content: result
       }]);
     } catch (error) {
       console.error('Error generating response:', error);
-      setMessages((prev: Message[]) => [...prev, { 
-        role: 'assistant', 
+      setMessages((prev: Message[]) => [...prev, {
+        role: 'assistant',
         content: "I apologize, but I encountered an error generating a response. Please try again."
       }]);
     } finally {
@@ -81,7 +81,7 @@ export function LLMDemo() {
     return (
       <div className="flex items-center justify-center h-full flex-col gap-4">
         <p className="text-center">This demo requires downloading a ~100MB language model to run in your browser.</p>
-        <button 
+        <button
           onClick={initModel}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
@@ -108,7 +108,7 @@ export function LLMDemo() {
           onSystemPromptChange={setSystemPrompt}
         />
       </div>
-      
+
       <div className="flex-1 relative">
         <ChatWindow
           messages={messages}

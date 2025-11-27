@@ -2,8 +2,14 @@
 
 import * as React from 'react';
 
+interface TextChunk {
+  id: string;
+  text: string;
+  pageNumber?: number;
+}
+
 interface ChatWindowProps {
-  messages: Array<{role: 'user' | 'assistant', content: string}>;
+  messages: Array<{ role: 'user' | 'assistant', content: string, sources?: TextChunk[] }>;
   onSendMessage: (message: string) => void;
   isGenerating: boolean;
 }
@@ -32,21 +38,35 @@ export function ChatWindow({ messages, onSendMessage, isGenerating }: ChatWindow
     <div className="flex flex-col h-full bg-[var(--color-background-card)] rounded-lg">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              message.role === 'user' ? 'justify-end' : 'justify-start'
-            }`}
-          >
+          <div key={index} className="space-y-2">
             <div
-              className={`max-w-[80%] rounded-lg p-3 ${
-                message.role === 'user'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-700 text-white'
-              }`}
+              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'
+                }`}
             >
-              {message.content}
+              <div
+                className={`max-w-[80%] rounded-lg p-3 ${message.role === 'user'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-700 text-white'
+                  }`}
+              >
+                {message.content}
+              </div>
             </div>
+            {message.sources && message.sources.length > 0 && (
+              <div className="flex justify-start">
+                <details className="max-w-[80%] text-xs bg-gray-800 text-gray-300 rounded-lg p-2 cursor-pointer">
+                  <summary className="hover:text-gray-100">📎 {message.sources.length} source(s)</summary>
+                  <div className="mt-2 space-y-2 text-xs">
+                    {message.sources.map((source, idx) => (
+                      <div key={idx} className="border-l-2 border-blue-500 pl-2">
+                        <p className="font-medium text-gray-200">Page {source.pageNumber || 'N/A'}</p>
+                        <p className="text-gray-400 line-clamp-2">{source.text.substring(0, 100)}...</p>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              </div>
+            )}
           </div>
         ))}
         {isGenerating && (
@@ -80,4 +100,4 @@ export function ChatWindow({ messages, onSendMessage, isGenerating }: ChatWindow
       </form>
     </div>
   );
-} 
+}

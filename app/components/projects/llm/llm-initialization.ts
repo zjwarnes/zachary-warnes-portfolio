@@ -8,10 +8,10 @@ appConfig.useIndexedDBCache = true;
 
 class ModelManager {
   private static instance: ModelManager;
-  private engine: webllm.EngineInterface | null = null;
+  private engine: webllm.MLCEngineInterface | null = null;
   private initializationPromise: Promise<void> | null = null;
 
-  private constructor() {}
+  private constructor() { }
 
   static getInstance(): ModelManager {
     if (!ModelManager.instance) {
@@ -22,7 +22,7 @@ class ModelManager {
 
   async initialize(progressCallback?: InitProgressCallback): Promise<void> {
     if (this.engine) return;
-    
+
     if (this.initializationPromise) {
       return this.initializationPromise;
     }
@@ -30,14 +30,14 @@ class ModelManager {
     this.initializationPromise = new Promise<void>(async (resolve, reject) => {
       try {
         console.log('Starting model initialization...');
-        
+
         this.engine = await webllm.CreateWebWorkerMLCEngine(
           new Worker(
             new URL('./worker.ts', import.meta.url),
             { type: 'module' }
           ),
           "Phi-3.5-mini-instruct-q4f16_1-MLC-1k",
-          { 
+          {
             initProgressCallback: progressCallback,
             appConfig: appConfig
           }
@@ -70,7 +70,7 @@ class ModelManager {
         messages,
         temperature: 0.5,
         stream: true,
-        max_gen_len: 1024
+        max_tokens: 1024
       });
 
       let response = '';

@@ -1,155 +1,150 @@
-import { Container } from 'app/components/container'
-import { ProjectLink } from 'app/components/projects/project-link'
-import { SkillCard } from 'app/components/skills/skill-card'
+'use client'
 
-const skills = [
-  {
-    title: "Large Language Models",
-    description: "Developing and deploying production-ready LLM applications",
-    details: {
-      expertise: [
-        "RAG System Architecture",
-        "Prompt Engineering",
-        "Context Window Optimization",
-        "Fine-tuning & Training"
-      ],
-      projects: [
-        "Scientific Document Retrieval System",
-        "Customer Support AI Assistant",
-        "Code Generation Tools"
-      ],
-      technologies: [
-        "OpenAI GPT Models",
-        "LangChain",
-        "Vector Databases",
-        "Azure OpenAI Service"
-      ]
-    }
-  },
-  {
-    title: "Computer Vision",
-    description: "Building advanced computer vision and image processing systems",
-    details: {
-      expertise: [
-        "Object Detection",
-        "Image Segmentation",
-        "Video Analysis",
-        "Real-time Processing"
-      ],
-      projects: [
-        "Manufacturing Defect Detection",
-        "Medical Image Analysis",
-        "Surveillance Systems"
-      ],
-      technologies: [
-        "PyTorch",
-        "OpenCV",
-        "YOLO",
-        "TensorFlow"
-      ]
-    }
-  },
-  {
-    title: "Predictive Analytics",
-    description: "Creating robust predictive models for business insights",
-    details: {
-      expertise: [
-        "Time Series Analysis",
-        "Anomaly Detection",
-        "Risk Assessment",
-        "Pattern Recognition"
-      ],
-      projects: [
-        "Financial Forecasting",
-        "Predictive Maintenance",
-        "Customer Behavior Analysis"
-      ],
-      technologies: [
-        "scikit-learn",
-        "Prophet",
-        "XGBoost",
-        "TensorFlow"
-      ]
-    }
-  },
-  {
-    title: "MLOps",
-    description: "Implementing end-to-end ML operations and deployment pipelines",
-    details: {
-      expertise: [
-        "Model Deployment",
-        "Performance Monitoring",
-        "Pipeline Automation",
-        "Version Control"
-      ],
-      projects: [
-        "Automated Training Pipelines",
-        "Model Monitoring Systems",
-        "A/B Testing Frameworks"
-      ],
-      technologies: [
-        "Docker",
-        "Kubernetes",
-        "MLflow",
-        "GitHub Actions"
-      ]
-    }
-  }
-];
+import { ParticleBackground } from './components/particle-background'
+import { ProjectWidget } from './components/projects/project-widget'
 
-export default function Page() {
+export default function Home() {
   return (
-    <Container as="section" className="py-8">
-      <h1 className="mb-8 text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tighter">
-        AI & Machine Learning Engineer
-      </h1>
-      <p className="mb-4">
-        {`I am an AI professional specializing in Large Language Models, Computer Vision, 
-        and Predictive Analytics. With six years of experience architecting and deploying 
-        AI models, I focus on creating innovative solutions using cutting-edge technologies.`}
-      </p>
-      
-      {/* Skills Section */}
-      <div className="my-8">
-        <h2 className="text-xl md:text-2xl font-medium mb-4">Core Skills</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {skills.map((skill, index) => (
-            <SkillCard
-              key={index}
-              title={skill.title}
-              description={skill.description}
-              details={skill.details}
-            />
-          ))}
-        </div>
-      </div>
+    <div className="relative min-h-screen bg-[var(--color-background-dark)]">
+      {/* Particle background */}
+      <ParticleBackground />
 
-      {/* Projects Section */}
-      <div className="my-8">
-        <h2 className="text-xl md:text-2xl font-medium mb-4">Featured Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ProjectLink 
-            href="/projects/llm"
-            title="LLM & RAG Systems"
-            description="Enterprise-scale LLM and RAG implementations for scientific document retrieval"
-          />
-          <ProjectLink 
-            href="/projects/vision"
-            title="Computer Vision Projects"
-            description="Advanced computer vision and object detection systems"
-          />
-          <ProjectLink 
-            href="/projects/prediction"
-            title="Predictive Models"
-            description="Machine learning models for predictive analytics and monitoring"
-          />
-          <ProjectLink 
-            href="/projects/other"
-            title="Other Projects"
-            description="Additional machine learning and data science projects"
-          />
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="min-h-screen flex items-center justify-center px-4 py-20">
+          <div className="max-w-4xl w-full text-center">
+            {/* Animated gradient text */}
+            <div className="mb-6">
+              <p className="text-lg md:text-xl text-[var(--color-primary)] font-semibold mb-4 tracking-wide">
+                Hi, I'm Zachary Warnes
+              </p>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-text-primary)] mb-4 leading-tight">
+                AI & Machine Learning
+                <span className="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  Engineer
+                </span>
+              </h1>
+            </div>
+
+            {/* Hero statement */}
+            <p className="text-lg md:text-xl text-[var(--color-text-secondary)] mb-8 max-w-2xl mx-auto leading-relaxed">
+              Building intelligent systems that transform data into actionable insights.
+              Specializing in LLMs, Computer Vision, and Predictive Analytics with 6+ years of experience.
+            </p>
+
+            {/* CTA Button */}
+            <div className="flex justify-center gap-4 flex-wrap">
+              <a
+                href="#projects"
+                className="px-8 py-3 rounded-lg bg-[var(--color-primary)] text-white font-semibold hover:bg-[var(--color-primary-hover)] transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30"
+              >
+                View My Work
+              </a>
+              <a
+                href="#contact"
+                className="px-8 py-3 rounded-lg border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-semibold hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300"
+              >
+                Get In Touch
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="min-h-screen flex items-center justify-center px-4 py-20">
+          <div className="max-w-6xl w-full">
+            <h2 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-4 text-center">
+              Featured Projects
+            </h2>
+            <p className="text-[var(--color-text-secondary)] text-center mb-16 max-w-2xl mx-auto">
+              Explore my latest work across different domains of AI and machine learning.
+            </p>
+
+            {/* Project widgets grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+              <ProjectWidget
+                title="LLM & RAG Systems"
+                description="Enterprise-scale LLM applications and Retrieval-Augmented Generation systems for semantic search and knowledge retrieval"
+                href="/projects/llm"
+                icon="🤖"
+                color="from-indigo-500 to-blue-500"
+              />
+              <ProjectWidget
+                title="Computer Vision"
+                description="Advanced object detection, image segmentation, and real-time visual processing systems"
+                href="/projects/vision"
+                icon="👁️"
+                color="from-purple-500 to-pink-500"
+              />
+              <ProjectWidget
+                title="Predictive Analytics"
+                description="Time series forecasting, anomaly detection, and machine learning models for business intelligence"
+                href="/projects/prediction"
+                icon="📊"
+                color="from-cyan-500 to-blue-500"
+              />
+              <ProjectWidget
+                title="Coming Soon"
+                description="Additional ML projects and demonstrations - stay tuned for more!"
+                href="#"
+                icon="🚀"
+                color="from-orange-500 to-red-500"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="min-h-screen flex items-center justify-center px-4 py-20">
+          <div className="max-w-2xl w-full text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-6">
+              Let's Connect
+            </h2>
+            <p className="text-[var(--color-text-secondary)] text-lg mb-12">
+              Interested in collaborating or want to discuss AI solutions for your project?
+              Feel free to reach out!
+            </p>
+
+            {/* Placeholder for contact form or links */}
+            <div className="p-8 rounded-xl border border-[var(--color-border-primary)] bg-gradient-to-br from-[var(--color-background-card)] to-transparent backdrop-blur-sm">
+              <p className="text-[var(--color-text-secondary)] mb-6">
+                Contact information coming soon...
+              </p>
+              <div className="flex justify-center gap-4">
+                <button className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all">
+                  Email
+                </button>
+                <button className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all">
+                  LinkedIn
+                </button>
+                <button className="px-6 py-2 rounded-lg border border-[var(--color-border-primary)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all">
+                  GitHub
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Scroll indicator */}
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-none">
+          <div className="animate-bounce">
+            <svg
+              className="w-6 h-6 text-[var(--color-primary)]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
         </div>
       </div>
-    </Container>
+    </div>
   )
 }

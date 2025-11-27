@@ -1,4 +1,4 @@
-import { baseUrl } from 'app/sitemap'
+import { baseUrl } from '@/app/sitemap'
 
 export async function GET() {
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>

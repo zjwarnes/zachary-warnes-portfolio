@@ -1,5 +1,5 @@
-import ProjectLayout from 'app/components/project-layout';
-import { Container } from 'app/components/container';
+import ProjectLayout from '@/app/components/project-layout';
+import { Container } from '@/app/components/container';
 
 export const metadata = {
   title: 'Predictive Models',
@@ -27,4 +27,4 @@ export default function PredictionPage() {
       </ProjectLayout>
     </Container>
   );
-} 
+}

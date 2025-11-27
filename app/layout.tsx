@@ -2,23 +2,21 @@ import './global.css'
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import Footer from './components/footer'
-import { baseUrl } from './sitemap'
 
+const baseUrl = 'https://zacharywarnes.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Zachary Warnes | AI Engineer',
+    template: '%s | Zachary Warnes',
   },
-  description: 'Zachary Warnes Portfolio.',
+  description: 'AI & Machine Learning Engineer specializing in LLMs, Computer Vision, and Predictive Analytics.',
   openGraph: {
-    title: 'Zachary Warnes Portfolio',
-    description: 'Zachary Warnes Professional Portfolio',
+    title: 'Zachary Warnes | AI Engineer',
+    description: 'AI & Machine Learning Engineer specializing in LLMs, Computer Vision, and Predictive Analytics.',
     url: baseUrl,
     siteName: 'Zachary Warnes',
     locale: 'en_US',
@@ -47,14 +45,10 @@ export default function RootLayout({
       lang="en"
       className={`dark ${GeistSans.variable} ${GeistMono.variable}`}
     >
-      <body className="antialiased text-[var(--color-text-primary)] min-h-screen flex flex-col relative">
-        <Navbar />
-        <main className="flex-grow relative z-10">
-          <div className="py-12">
-            {children}
-          </div>
+      <body className="antialiased text-[var(--color-text-primary)] min-h-screen bg-[var(--color-background-dark)]">
+        <main className="relative w-full">
+          {children}
         </main>
-        <Footer />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -5,8 +5,8 @@ import { ApplicationCard } from '@/app/components/projects/llm/application-card'
 import dynamic from 'next/dynamic';
 
 // Dynamically import the LLM components with ssr disabled
-const LLMDemo = dynamic(
-  () => import('@/app/components/projects/llm/llm-demo').then(mod => mod.LLMDemo),
+const RAGLLMDemo = dynamic(
+  () => import('@/app/components/projects/llm/rag/rag-llm-demo').then(mod => mod.RAGLLMDemo),
   { ssr: false }
 );
 
@@ -53,19 +53,19 @@ export default function LLMPage() {
       <ProjectLayout
         demo={
           <LLMErrorBoundary>
-            <LLMDemo />
+            <RAGLLMDemo />
           </LLMErrorBoundary>
         }
       >
         <div className="space-y-8">
           <div>
             <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-              Language Model Projects
+              LLM & RAG Demonstrations
             </h1>
             <ProjectDescription
               paragraphs={[
-                "Interactive demonstration of a browser-based language model. Chat with the AI to learn about my skills and experience in building LLM-powered applications.",
-                "This demo showcases my expertise in deploying efficient, production-ready language models, particularly for enterprise applications requiring real-time responses and seamless integration."
+                "Interactive browser-based LLM with Retrieval Augmented Generation (RAG) capabilities. Upload a PDF document and chat with an AI that understands your content—all processing happens locally in your browser for complete privacy.",
+                "This demo showcases expertise in deploying efficient language models client-side, implementing semantic search with embeddings, and building production-ready RAG systems. Perfect for applications requiring document intelligence without server infrastructure."
               ]}
             />
           </div>
@@ -84,4 +84,4 @@ export default function LLMPage() {
       </ProjectLayout>
     </Container>
   );
-} 
+}

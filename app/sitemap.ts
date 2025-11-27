@@ -1,4 +1,4 @@
-export const baseUrl = 'https://portfolio-blog-starter.vercel.app'
+export const baseUrl = 'https://zacharywarnes.com'
 
 export default async function sitemap() {
   const routes = ['', '/projects/llm', '/projects/vision', '/projects/prediction'].map((route) => ({
