@@ -29,7 +29,6 @@ class EmbeddingManager {
                 // Configure the environment to use the correct CDN
                 env.allowLocalModels = false;
                 env.allowRemoteModels = true;
-                env.remoteModels = true;
 
                 this.extractor = await pipeline('feature-extraction', EMBEDDING_MODEL, {
                     quantized: true,

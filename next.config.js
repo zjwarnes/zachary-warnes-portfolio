@@ -6,12 +6,18 @@ const nextConfig = {
   ],
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Exclude onnxruntime-node and @xenova/transformers from server bundle
-      config.externals.push('onnxruntime-node');
+      // Exclude native modules and client-side packages from server bundle
+      config.externals.push(
+        'onnxruntime-node',
+        'sharp'
+      );
       config.resolve.fallback = {
         ...config.resolve.fallback,
         'onnxruntime-node': false,
         '@xenova/transformers': false,
+        'sharp': false,
+        'fs': false,
+        'path': false,
       };
     } else {
       config.resolve.fallback = {
@@ -20,6 +26,7 @@ const nextConfig = {
         path: false,
         crypto: false,
         'onnxruntime-node': false,
+        'sharp': false,
       };
     }
 
@@ -34,6 +41,12 @@ const nextConfig = {
     config.module.rules.push({
       test: /\.wasm$/,
       type: 'asset/resource'
+    });
+
+    // Exclude .node binary files from webpack bundling
+    config.module.rules.push({
+      test: /\.node$/,
+      use: 'ignore-loader'
     });
 
     return config;
