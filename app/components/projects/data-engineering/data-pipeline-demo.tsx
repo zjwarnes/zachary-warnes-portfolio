@@ -16,6 +16,8 @@ interface ProducerStats {
 
 interface ReaderStats {
     consumed: number
+    isReading: boolean
+    readTimeout: NodeJS.Timeout | null
 }
 
 export function DataPipelineDemo() {
@@ -30,7 +32,7 @@ export function DataPipelineDemo() {
         Array(1).fill(null).map(() => ({ produced: 0 }))
     )
     const [readerStats, setReaderStats] = useState<ReaderStats[]>(
-        Array(1).fill(null).map(() => ({ consumed: 0 }))
+        Array(1).fill(null).map(() => ({ consumed: 0, isReading: false, readTimeout: null }))
     )
 
     // Particles for animation
@@ -59,7 +61,7 @@ export function DataPipelineDemo() {
             const newStats = [...prev]
             if (newStats.length < readerCount) {
                 while (newStats.length < readerCount) {
-                    newStats.push({ consumed: 0 })
+                    newStats.push({ consumed: 0, isReading: false, readTimeout: null })
                 }
             } else {
                 newStats.splice(readerCount)
@@ -78,12 +80,22 @@ export function DataPipelineDemo() {
             setParticles((prevParticles) => {
                 let updated = [...prevParticles]
 
-                // Generate particles from each producer (0 or 1 item/sec = random)
+                // Generate particles from each producer (0, 1, or 2 items/sec = random)
                 for (let i = 0; i < producerCount; i++) {
-                    // Random chance of producing an item (0-1 per second average)
-                    if (Math.random() < 0.016) { // ~1/60 chance per frame = 1 per second
+                    // Random chance of producing 0, 1, or 2 items per second
+                    const rand = Math.random()
+                    let itemsToGenerate = 0
+
+                    if (rand < 0.008) {
+                        itemsToGenerate = 2 // ~2 per second
+                    } else if (rand < 0.024) {
+                        itemsToGenerate = 1 // ~1 per second
+                    }
+                    // else itemsToGenerate = 0
+
+                    for (let j = 0; j < itemsToGenerate; j++) {
                         const newParticle: DataParticle = {
-                            id: `${timeRef.current}-${i}-${Math.random()}`,
+                            id: `${timeRef.current}-${i}-${j}-${Math.random()}`,
                             sourceProducer: i,
                             stage: 'producer',
                             progress: 0,
@@ -130,6 +142,22 @@ export function DataPipelineDemo() {
                             setReaderStats((prev) => {
                                 const newStats = [...prev]
                                 newStats[readerIndex].consumed += 1
+                                newStats[readerIndex].isReading = true
+
+                                // Clear existing timeout if any
+                                if (newStats[readerIndex].readTimeout) {
+                                    clearTimeout(newStats[readerIndex].readTimeout as NodeJS.Timeout)
+                                }
+
+                                // Reset reading indicator after 300ms
+                                newStats[readerIndex].readTimeout = setTimeout(() => {
+                                    setReaderStats((prev2) => {
+                                        const newStats2 = [...prev2]
+                                        newStats2[readerIndex].isReading = false
+                                        return newStats2
+                                    })
+                                }, 300) as any
+
                                 return newStats
                             })
                         }
@@ -156,15 +184,15 @@ export function DataPipelineDemo() {
 
     // Calculate positions for each stage
     const getProducerPosition = (producerIndex: number) => {
-        const startY = 60
-        const spacing = 80
-        return { x: 40, y: startY + producerIndex * spacing }
+        const startY = 50
+        const spacing = 100
+        return { x: 20, y: startY + producerIndex * spacing }
     }
 
     const getReaderPosition = (readerIndex: number) => {
-        const startY = 60
-        const spacing = 80
-        return { x: 380, y: startY + readerIndex * spacing }
+        const startY = 50
+        const spacing = 100
+        return { x: 400, y: startY + readerIndex * spacing }
     }
 
     const getParticlePosition = (particle: DataParticle) => {
@@ -177,18 +205,18 @@ export function DataPipelineDemo() {
 
         if (particle.stage === 'producer') {
             const prodPos = getProducerPosition(particle.sourceProducer)
-            return { x: prodPos.x + particle.progress * 40, y: prodPos.y + 25 }
+            return { x: prodPos.x + particle.progress * 60, y: prodPos.y + 35 }
         } else if (particle.stage === 'buffer') {
             return {
-                x: 150 + particle.progress * 50,
-                y: 150 + Math.sin(particle.id.charCodeAt(0) / 10) * 40,
+                x: 230 + particle.progress * 50,
+                y: 175 + Math.sin(particle.id.charCodeAt(0) / 10) * 40,
             }
         } else if (particle.stage === 'reader') {
             const readerIndex = Math.floor(Math.random() * readerCount)
             const readerPos = getReaderPosition(readerIndex)
-            return { x: readerPos.x + particle.progress * 40, y: readerPos.y + 25 }
+            return { x: readerPos.x + particle.progress * 60, y: readerPos.y + 35 }
         } else {
-            return { x: 520, y: 150 + Math.sin(particle.id.charCodeAt(0) / 10) * 40 }
+            return { x: 580, y: 175 + Math.sin(particle.id.charCodeAt(0) / 10) * 40 }
         }
     }
 
@@ -204,9 +232,9 @@ export function DataPipelineDemo() {
         <div className="w-full h-full flex flex-col bg-[var(--color-background-dark)] rounded-lg p-6">
             {/* Title */}
             <div className="mb-6">
-                <h3 className="text-lg font-semibold text-white mb-2">Data Pipeline Simulator</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">Scalable Data Pipeline</h3>
                 <p className="text-sm text-[var(--color-text-primary)]">
-                    Scale producers and readers to manage data flow. Producers: 0-1 items/sec, Readers: 2 items/sec each
+                    Interactive simulation of a distributed data streaming architecture. Scale producers to simulate variable data ingestion and consumers to optimize throughput. Producers emit 0-2 events/sec, consumers process 2 events/sec each.
                 </p>
             </div>
 
@@ -223,8 +251,8 @@ export function DataPipelineDemo() {
                                 key={count}
                                 onClick={() => setProducerCount(count)}
                                 className={`px-2 py-1 text-xs rounded font-medium transition ${producerCount === count
-                                        ? 'bg-[var(--color-primary)] text-white'
-                                        : 'bg-[var(--color-background-card)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:border-[var(--color-primary)]'
+                                    ? 'bg-[var(--color-primary)] text-white'
+                                    : 'bg-[var(--color-background-card)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:border-[var(--color-primary)]'
                                     }`}
                             >
                                 {count}
@@ -236,7 +264,7 @@ export function DataPipelineDemo() {
                 {/* Reader Count Control */}
                 <div>
                     <label className="text-sm font-medium text-white block mb-2">
-                        Active Readers: {readerCount}
+                        Active Consumers: {readerCount}
                     </label>
                     <div className="flex gap-2">
                         {[1, 2, 3].map((count) => (
@@ -244,8 +272,8 @@ export function DataPipelineDemo() {
                                 key={count}
                                 onClick={() => setReaderCount(count)}
                                 className={`flex-1 px-3 py-1 text-sm rounded font-medium transition ${readerCount === count
-                                        ? 'bg-[var(--color-primary)] text-white'
-                                        : 'bg-[var(--color-background-card)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:border-[var(--color-primary)]'
+                                    ? 'bg-[var(--color-primary)] text-white'
+                                    : 'bg-[var(--color-background-card)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:border-[var(--color-primary)]'
                                     }`}
                             >
                                 {count}
@@ -286,12 +314,13 @@ export function DataPipelineDemo() {
                         const pos = getProducerPosition(i)
                         return (
                             <g key={`producer-${i}`}>
+                                <title>{`Data Producer ${i + 1}: Emits 0-2 events per second`}</title>
                                 {/* Producer box */}
                                 <rect
                                     x={pos.x}
                                     y={pos.y}
-                                    width="70"
-                                    height="50"
+                                    width="100"
+                                    height="70"
                                     fill="none"
                                     stroke="#3b82f6"
                                     strokeWidth="2"
@@ -299,19 +328,19 @@ export function DataPipelineDemo() {
                                 />
                                 {/* Icon */}
                                 <text
-                                    x={pos.x + 10}
-                                    y={pos.y + 18}
-                                    fontSize="20"
+                                    x={pos.x + 15}
+                                    y={pos.y + 28}
+                                    fontSize="28"
                                     fill="#3b82f6"
                                 >
                                     📊
                                 </text>
                                 {/* Label */}
                                 <text
-                                    x={pos.x + 35}
+                                    x={pos.x + 70}
                                     y={pos.y + 22}
                                     textAnchor="middle"
-                                    fontSize="10"
+                                    fontSize="12"
                                     fill="#3b82f6"
                                     fontWeight="bold"
                                 >
@@ -319,10 +348,10 @@ export function DataPipelineDemo() {
                                 </text>
                                 {/* Count */}
                                 <text
-                                    x={pos.x + 35}
-                                    y={pos.y + 38}
+                                    x={pos.x + 70}
+                                    y={pos.y + 48}
                                     textAnchor="middle"
-                                    fontSize="9"
+                                    fontSize="11"
                                     fill="#3b82f6"
                                 >
                                     {producerStats[i]?.produced || 0}
@@ -333,23 +362,24 @@ export function DataPipelineDemo() {
 
                     {/* Buffer */}
                     <g>
+                        <title>Message Buffer: Temporary queue storing events between producers and consumers</title>
                         <rect
-                            x="150"
-                            y="125"
-                            width="70"
-                            height="50"
+                            x="180"
+                            y="140"
+                            width="100"
+                            height="70"
                             fill="none"
                             stroke={bufferColor}
                             strokeWidth="2"
                             rx="4"
                         />
-                        <text x="165" y="143" fontSize="20" fill={bufferColor}>
+                        <text x="205" y="168" fontSize="28" fill={bufferColor}>
                             ⚡
                         </text>
-                        <text x="185" y="148" textAnchor="middle" fontSize="10" fill={bufferColor} fontWeight="bold">
+                        <text x="260" y="162" textAnchor="middle" fontSize="12" fill={bufferColor} fontWeight="bold">
                             Buffer
                         </text>
-                        <text x="185" y="163" textAnchor="middle" fontSize="10" fill="white">
+                        <text x="260" y="188" textAnchor="middle" fontSize="11" fill="white">
                             {buffered}
                         </text>
                     </g>
@@ -357,14 +387,18 @@ export function DataPipelineDemo() {
                     {/* Readers */}
                     {Array.from({ length: readerCount }).map((_, i) => {
                         const pos = getReaderPosition(i)
+                        const displayValue = readerStats[i]?.isReading
+                            ? (readerCount > 1 ? readerCount : 1)
+                            : 0
                         return (
                             <g key={`reader-${i}`}>
-                                {/* Reader box */}
+                                <title>{`Consumer ${i + 1}: Processes 2 events per second`}</title>
+                                {/* Consumer box */}
                                 <rect
                                     x={pos.x}
                                     y={pos.y}
-                                    width="70"
-                                    height="50"
+                                    width="100"
+                                    height="70"
                                     fill="none"
                                     stroke="#8b5cf6"
                                     strokeWidth="2"
@@ -372,33 +406,34 @@ export function DataPipelineDemo() {
                                 />
                                 {/* Icon */}
                                 <text
-                                    x={pos.x + 10}
-                                    y={pos.y + 18}
-                                    fontSize="20"
+                                    x={pos.x + 15}
+                                    y={pos.y + 28}
+                                    fontSize="28"
                                     fill="#8b5cf6"
                                 >
                                     🔍
                                 </text>
                                 {/* Label */}
                                 <text
-                                    x={pos.x + 35}
+                                    x={pos.x + 70}
                                     y={pos.y + 22}
                                     textAnchor="middle"
-                                    fontSize="10"
+                                    fontSize="12"
                                     fill="#8b5cf6"
                                     fontWeight="bold"
                                 >
-                                    R{i + 1}
+                                    C{i + 1}
                                 </text>
                                 {/* Count */}
                                 <text
-                                    x={pos.x + 35}
-                                    y={pos.y + 38}
+                                    x={pos.x + 70}
+                                    y={pos.y + 48}
                                     textAnchor="middle"
-                                    fontSize="9"
+                                    fontSize="14"
                                     fill="#8b5cf6"
+                                    fontWeight="bold"
                                 >
-                                    {readerStats[i]?.consumed || 0}
+                                    {displayValue}
                                 </text>
                             </g>
                         )
@@ -406,14 +441,15 @@ export function DataPipelineDemo() {
 
                     {/* Database */}
                     <g>
-                        <rect x="520" y="125" width="70" height="50" fill="none" stroke="#10b981" strokeWidth="2" rx="4" />
-                        <text x="535" y="143" fontSize="20" fill="#10b981">
+                        <title>Data Store: Persists processed events for long-term storage and analytics</title>
+                        <rect x="540" y="140" width="100" height="70" fill="none" stroke="#10b981" strokeWidth="2" rx="4" />
+                        <text x="560" y="168" fontSize="28" fill="#10b981">
                             💾
                         </text>
-                        <text x="555" y="148" textAnchor="middle" fontSize="10" fill="#10b981" fontWeight="bold">
+                        <text x="615" y="162" textAnchor="middle" fontSize="12" fill="#10b981" fontWeight="bold">
                             Database
                         </text>
-                        <text x="555" y="163" textAnchor="middle" fontSize="10" fill="white">
+                        <text x="615" y="188" textAnchor="middle" fontSize="11" fill="white">
                             {stored}
                         </text>
                     </g>
@@ -424,10 +460,10 @@ export function DataPipelineDemo() {
                         return (
                             <line
                                 key={`arrow-prod-${i}`}
-                                x1={prodPos.x + 70}
-                                y1={prodPos.y + 25}
-                                x2="150"
-                                y2="150"
+                                x1={prodPos.x + 100}
+                                y1={prodPos.y + 35}
+                                x2="180"
+                                y2="175"
                                 stroke="#666"
                                 strokeWidth="1"
                                 markerEnd="url(#arrowhead)"
@@ -441,10 +477,10 @@ export function DataPipelineDemo() {
                         return (
                             <line
                                 key={`arrow-reader-${i}`}
-                                x1="220"
-                                y1="150"
+                                x1="250"
+                                y1="175"
                                 x2={readerPos.x}
-                                y2={readerPos.y + 25}
+                                y2={readerPos.y + 35}
                                 stroke="#666"
                                 strokeWidth="1"
                                 markerEnd="url(#arrowhead)"
@@ -454,10 +490,10 @@ export function DataPipelineDemo() {
 
                     {/* Arrow from readers to database */}
                     <line
-                        x1="450"
-                        y1="150"
-                        x2="520"
-                        y2="150"
+                        x1="500"
+                        y1="175"
+                        x2="540"
+                        y2="175"
                         stroke="#666"
                         strokeWidth="1"
                         markerEnd="url(#arrowhead)"
