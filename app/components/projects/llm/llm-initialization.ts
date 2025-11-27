@@ -44,7 +44,7 @@ class ModelManager {
             new URL('./worker.ts', import.meta.url),
             { type: 'module' }
           ),
-          "Phi-3.5-mini-instruct-q4f16_1-MLC-1k",
+          "TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC",
           {
             initProgressCallback: progressCallback,
             appConfig: appConfig
@@ -142,7 +142,7 @@ class ModelManager {
         messages,
         temperature: 0.5,
         stream: true,
-        max_tokens: 1024
+        max_tokens: 256
       });
 
       let response = '';

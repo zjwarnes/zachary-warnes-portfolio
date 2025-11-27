@@ -83,12 +83,12 @@ export function LLMDemo() {
     return (
       <div className="flex items-center justify-center h-full flex-col gap-6">
         <div className="text-center max-w-md">
-          <p className="mb-4">This demo requires downloading a ~100MB language model to run entirely in your browser.</p>
+          <p className="mb-4">This demo uses TinyLlama, a lightweight language model (~50MB), running entirely in your browser.</p>
           <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 text-sm space-y-2 text-left mb-4">
             <p><strong>Note:</strong></p>
             <ul className="list-disc list-inside space-y-1">
               <li>Model, inference, and document retrieval all run locally in your browser</li>
-              <li>Processing can take 10-30 seconds per response</li>
+              <li>Responses typically generate in 2-5 seconds</li>
               <li>The model has access to Zac's resume for context</li>
             </ul>
           </div>
