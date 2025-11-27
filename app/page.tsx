@@ -62,34 +62,27 @@ export default function Home() {
             </p>
 
             {/* Project widgets grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <ProjectWidget
-                title="LLM & RAG Systems"
-                description="Enterprise-scale LLM applications and Retrieval-Augmented Generation systems for semantic search and knowledge retrieval"
+                title="LLMs & RAG"
+                description="Enterprise-scale LLM applications and Retrieval-Augmented Generation systems for semantic search and knowledge retrieval."
                 href="/projects/llm"
                 icon="🤖"
                 color="from-indigo-500 to-blue-500"
               />
               <ProjectWidget
-                title="Computer Vision"
-                description="Advanced object detection, image segmentation, and real-time visual processing systems"
-                href="/projects/vision"
-                icon="👁️"
-                color="from-purple-500 to-pink-500"
+                title="Data Engineering"
+                description="Scalable data pipelines, event-driven architectures, and cloud-based ETL systems processing terabytes of data."
+                href="/projects/data-engineering"
+                icon="⚙️"
+                color="from-emerald-500 to-teal-500"
               />
               <ProjectWidget
-                title="Predictive Analytics"
-                description="Time series forecasting, anomaly detection, and machine learning models for business intelligence"
-                href="/projects/prediction"
-                icon="📊"
+                title="Machine Learning"
+                description="Deep learning architectures, predictive models, and production ML systems with advanced interpretability techniques."
+                href="/projects/machine-learning"
+                icon="🧠"
                 color="from-cyan-500 to-blue-500"
-              />
-              <ProjectWidget
-                title="Coming Soon"
-                description="Additional ML projects and demonstrations - stay tuned for more!"
-                href="#"
-                icon="🚀"
-                color="from-orange-500 to-red-500"
               />
             </div>
           </div>

@@ -15,36 +15,30 @@ const LLMErrorBoundary = dynamic(
   { ssr: false }
 );
 
-const applications = [
+const coreProjects = [
   {
-    title: "Custom Knowledge Assistant",
-    description: "AI-powered chatbot that learns from your organization's documents and knowledge base to provide accurate, contextual responses to employee queries.",
-    skills: ["RAG", "Vector databases", "LLM fine-tuning", "Enterprise search"],
-    value: "Reduces time spent searching for information by 70% and ensures consistent knowledge sharing across teams."
+    title: "AI Knowledge Assistant",
+    description: "RAG-based system deployed in production at Ideon enabling hundreds of users to query thousands of proprietary documents for scientific analysis.",
+    skills: ["RAG", "LangChain", "Pinecone", "REST APIs"],
+    value: "Enables instant access to proprietary knowledge base, improving research efficiency and ensuring knowledge consistency across teams."
   },
   {
-    title: "Automated Document Analysis",
-    description: "Intelligent system for processing and analyzing large volumes of documents, extracting key insights and generating summaries.",
-    skills: ["Document processing", "NLP", "Information extraction", "Text summarization"],
-    value: "Cuts document processing time by 80% while improving accuracy and consistency of information extraction."
+    title: "Intelligent Document Processing",
+    description: "NLP pipeline for processing and analyzing technical documents, extracting key insights and enabling semantic search across document repositories.",
+    skills: ["Document parsing", "Embeddings", "Vector search", "Information extraction"],
+    value: "Reduces document analysis time by 80% and improves knowledge discovery for research and decision-making."
   },
   {
-    title: "Conversational AI Platform",
-    description: "Enterprise-grade platform for building and deploying custom chatbots and virtual assistants tailored to specific business needs.",
-    skills: ["Dialogue management", "Intent recognition", "Multi-language support", "Integration APIs"],
-    value: "Enables 24/7 customer support while reducing support costs by 50% and improving response times."
-  },
-  {
-    title: "Content Generation System",
-    description: "AI-powered system for generating and optimizing various types of content, from technical documentation to marketing materials.",
-    skills: ["Content generation", "SEO optimization", "Multilingual support", "Template management"],
-    value: "Accelerates content creation by 5x while maintaining brand voice and quality standards."
+    title: "Conversational Query Interface",
+    description: "End-to-end system combining fine-tuned language models with retrieval mechanisms to provide accurate, context-aware responses to user queries.",
+    skills: ["LLM fine-tuning", "Prompt engineering", "Context management", "API integration"],
+    value: "Provides natural language interface to complex databases, making specialized knowledge accessible to non-technical users."
   }
 ];
 
 export const metadata = {
-  title: 'LLM Projects',
-  description: 'Interactive LLM demonstrations and applications',
+  title: 'LLMs & RAG',
+  description: 'Large Language Models and Retrieval-Augmented Generation expertise',
 }
 
 export default function LLMPage() {
@@ -60,24 +54,64 @@ export default function LLMPage() {
         <div className="space-y-8">
           <div>
             <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-              LLM & RAG Demonstrations
+              LLMs & RAG Expertise
             </h1>
             <ProjectDescription
               paragraphs={[
-                "Interactive browser-based LLM with Retrieval Augmented Generation (RAG) capabilities. Upload a PDF document and chat with an AI that understands your content—all processing happens locally in your browser for complete privacy.",
-                "This demo showcases expertise in deploying efficient language models client-side, implementing semantic search with embeddings, and building production-ready RAG systems. Perfect for applications requiring document intelligence without server infrastructure."
+                "Specialized in building enterprise-scale LLM applications with Retrieval-Augmented Generation (RAG). With experience deploying production systems at Ideon and creating advanced AI tutoring systems, I combine LangChain, vector databases, and fine-tuned models to create intelligent systems that understand domain-specific knowledge.",
+                "This demo showcases a browser-based RAG system where you can upload documents and have intelligent conversations about their content. All processing happens locally for complete privacy and security."
               ]}
             />
           </div>
 
           <div>
             <h2 className="font-semibold text-xl mb-4 tracking-tighter">
-              What I Can Build For You
+              What I Offer
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto pr-2">
-              {applications.map((app, index) => (
-                <ApplicationCard key={index} {...app} />
+              {coreProjects.map((project, index) => (
+                <ApplicationCard key={index} {...project} />
               ))}
+            </div>
+          </div>
+
+          <div>
+            <h2 className="font-semibold text-xl mb-4 tracking-tighter">
+              Technical Stack
+            </h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="font-semibold text-[var(--color-primary)] mb-2">LLM Frameworks</p>
+                <ul className="space-y-1 text-[var(--color-text-secondary)]">
+                  <li>• LangChain</li>
+                  <li>• Prompt Engineering</li>
+                  <li>• Fine-tuning & Adaptation</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold text-[var(--color-primary)] mb-2">Vector Databases</p>
+                <ul className="space-y-1 text-[var(--color-text-secondary)]">
+                  <li>• Pinecone</li>
+                  <li>• Weaviate</li>
+                  <li>• FAISS</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold text-[var(--color-primary)] mb-2">Cloud & Deployment</p>
+                <ul className="space-y-1 text-[var(--color-text-secondary)]">
+                  <li>• Azure</li>
+                  <li>• AWS Lambda</li>
+                  <li>• REST APIs</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold text-[var(--color-primary)] mb-2">Full Stack</p>
+                <ul className="space-y-1 text-[var(--color-text-secondary)]">
+                  <li>• FastAPI/Flask</li>
+                  <li>• React</li>
+                  <li>• Document Processing</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

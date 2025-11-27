@@ -24,10 +24,10 @@ export default function Footer() {
         <div className="bg-[var(--color-background-card)] rounded-lg p-8">
           <ul className="font-sm flex flex-col space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 text-[var(--color-text-secondary)]">
             {[
-              { href: '/resume.pdf', label: 'Resume' },
+              { href: 'mailto:zjwarnes@gmail.com', label: 'Email' },
+              { href: 'https://www.linkedin.com/in/zjwarnes/', label: 'LinkedIn' },
               { href: 'https://github.com/zjwarnes', label: 'GitHub' },
-              { href: 'https://zjwarnes.medium.com/', label: 'Medium' },
-              { href: 'https://linkedin.com/in/zjwarnes', label: 'LinkedIn' },
+              { href: '/resume.pdf', label: 'Resume' },
             ].map(({ href, label }) => (
               <li key={href}>
                 <a

@@ -10,13 +10,13 @@ const navItems = {
     name: 'Home',
   },
   '/projects/llm': {
-    name: 'LLM & RAG',
+    name: 'LLMs & RAG',
   },
-  '/projects/vision': {
-    name: 'Computer Vision',
+  '/projects/data-engineering': {
+    name: 'Data Engineering',
   },
-  '/projects/prediction': {
-    name: 'Predictive Models',
+  '/projects/machine-learning': {
+    name: 'Machine Learning',
   },
 }
 
@@ -28,15 +28,15 @@ export function Navbar() {
     <header className="sticky top-0 z-50 bg-[var(--color-background-dark)] py-4">
       <Container>
         <div className="bg-[var(--color-background-card)] rounded-lg p-4">
-          <button 
+          <button
             className="md:hidden p-2 hover:bg-[var(--color-border-hover)] rounded-md"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <span className="sr-only">Toggle menu</span>
-            <svg 
-              className="h-6 w-6" 
-              fill="none" 
-              viewBox="0 0 24 24" 
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
               stroke="currentColor"
             >
               {isMenuOpen ? (
@@ -70,7 +70,7 @@ export function Navbar() {
                       transition-all duration-200
                       flex align-middle relative py-2 px-4
                       rounded-md w-full md:w-auto
-                      ${isActive 
+                      ${isActive
                         ? 'text-[var(--color-text-primary)] bg-[var(--color-border-hover)]'
                         : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-border-hover)]'
                       }
